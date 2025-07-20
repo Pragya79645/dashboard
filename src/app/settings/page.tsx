@@ -76,126 +76,205 @@ export default function SettingsPage() {
   const enabledMovieCount = Object.values(settings.movies).filter(Boolean).length;
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6 px-4 sm:px-0">
-      <div className="text-center space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Content Preferences</h1>
-        <p className="text-muted-foreground text-sm sm:text-base max-w-2xl mx-auto">
-          Customize your content experience by selecting your preferred categories for news and movies.
-        </p>
+    <div className="max-w-6xl mx-auto space-y-8 px-4 sm:px-0">
+      {/* Enhanced Header with Neobrutalist Design */}
+      <div className="text-center space-y-6">
+        <div className="relative inline-block">
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight uppercase bg-primary text-primary-foreground px-8 py-4 border-4 border-border shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] transform -rotate-1">
+            Content Preferences
+          </h1>
+          {/* Decorative accent blocks */}
+          <div className="absolute -top-3 -right-3 w-6 h-6 bg-secondary border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] transform rotate-12"></div>
+          <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-accent border-3 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)] transform -rotate-12"></div>
+        </div>
+        <div className="max-w-2xl mx-auto bg-muted border-4 border-border p-6 shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transform rotate-1">
+          <p className="text-muted-foreground text-sm sm:text-base font-semibold uppercase tracking-wide">
+            🎯 Customize your content experience by selecting your preferred categories for news and movies.
+          </p>
+        </div>
       </div>
 
       <Tabs defaultValue="news" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="news" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-            <Globe className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>News Preferences</span>
-            <Badge variant="secondary" className="text-xs">{enabledNewsCount}</Badge>
+        {/* Enhanced Tabs List */}
+        <TabsList className="grid w-full grid-cols-2 p-2 bg-muted border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)]">
+          <TabsTrigger value="news" className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-3 data-[state=active]:border-border data-[state=active]:shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[3px_3px_0px_0px_rgb(255,255,255)] transition-all duration-200 hover:translate-x-[-1px] hover:translate-y-[-1px]">
+            <Globe className="w-4 h-6" />
+            <span>News Feed</span>
+            <Badge variant="secondary" className="text-xs font-black border-2 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)]">{enabledNewsCount}</Badge>
           </TabsTrigger>
-          <TabsTrigger value="movies" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm">
-            <Film className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span>Movie Preferences</span>
-            <Badge variant="secondary" className="text-xs">{enabledMovieCount}</Badge>
+          <TabsTrigger value="movies" className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground data-[state=active]:border-3 data-[state=active]:border-border data-[state=active]:shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[3px_3px_0px_0px_rgb(255,255,255)] transition-all duration-200 hover:translate-x-[-1px] hover:translate-y-[-1px]">
+            <Film className="w-4 h-6" />
+            <span>Movie Picks</span>
+            <Badge variant="secondary" className="text-xs font-black border-2 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)]">{enabledMovieCount}</Badge>
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="news" className="mt-6">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
-                <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
-                News Categories
-              </CardTitle>
-              <CardDescription className="text-sm">
-                Choose the types of news you want to see on your dashboard. 
-                Your preferences will personalize your news feed with live articles from News API.
+        <TabsContent value="news" className="mt-8">
+          <Card className="border-4 border-border shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:shadow-[12px_12px_0px_0px_rgb(255,255,255)] transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+            <CardHeader className="pb-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-b-4 border-border">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-3 text-xl sm:text-2xl font-black uppercase tracking-wider">
+                  <div className="p-2 bg-primary border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+                    <Globe className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                  News Categories
+                </CardTitle>
+                <div className="bg-accent text-accent-foreground px-4 py-6 border-3 border-border font-black text-sm uppercase shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)] transform rotate-3">
+                  {enabledNewsCount}/{Object.keys(settings.news).length} Active
+                </div>
+              </div>
+              <CardDescription className="text-sm font-semibold mt-4 bg-muted border-l-4 border-primary pl-4 py-2">
+                🚀 Choose the types of news you want to see on your dashboard. 
+                Your preferences will personalize your news feed with live articles.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 sm:space-y-6">
-              <div className="text-xs sm:text-sm text-muted-foreground">
-                {enabledNewsCount} of {Object.keys(settings.news).length} categories enabled
-              </div>
-              
-              <div className="grid gap-3 sm:gap-4">
-                {(Object.keys(settings.news) as NewsCategory[]).map((key) => {
+            <CardContent className="space-y-6 p-6">              
+              <div className="grid gap-4">
+                {(Object.keys(settings.news) as NewsCategory[]).map((key, index) => {
                   const { label, description, icon: Icon } = newsCategories[key];
+                  const isEnabled = settings.news[key];
+                  
+                  // Define color variants for rotation
+                  const colorVariants = [
+                    { bg: 'bg-primary/10', iconBg: 'bg-primary', iconText: 'text-primary-foreground' },
+                    { bg: 'bg-secondary/10', iconBg: 'bg-secondary', iconText: 'text-secondary-foreground' },
+                    { bg: 'bg-accent/10', iconBg: 'bg-accent', iconText: 'text-accent-foreground' }
+                  ];
+                  const colorSet = colorVariants[index % colorVariants.length];
+                  
                   return (
-                    <div key={key} className="flex items-center justify-between p-3 sm:p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
-                      <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
-                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary mt-1 flex-shrink-0" />
+                    <div key={key} className={`group relative flex items-center justify-between p-4 border-3 border-border transition-all duration-200 hover:shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[6px_6px_0px_0px_rgb(255,255,255)] hover:translate-x-[-2px] hover:translate-y-[-2px] ${isEnabled ? `${colorSet.bg} shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]` : 'bg-card hover:bg-muted/50'}`}>
+                      <div className="flex items-start gap-4 flex-1 min-w-0">
+                        <div className={`p-2 border-3 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)] ${isEnabled ? colorSet.iconBg : 'bg-muted'} transition-all duration-200 group-hover:rotate-3`}>
+                          <Icon className={`w-5 h-5 ${isEnabled ? colorSet.iconText : 'text-muted-foreground'}`} />
+                        </div>
                         <div className="flex-1 min-w-0">
-                          <Label htmlFor={`news-${key}`} className="text-sm sm:text-base font-medium cursor-pointer block">
+                          <Label htmlFor={`news-${key}`} className="text-base font-bold cursor-pointer block uppercase tracking-wide">
                             {label}
                           </Label>
-                          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{description}</p>
+                          <p className="text-sm text-muted-foreground font-medium mt-1">{description}</p>
                         </div>
                       </div>
-                      <Switch
-                        id={`news-${key}`}
-                        checked={settings.news[key]}
-                        onCheckedChange={() => toggleNewsSetting(key)}
-                        className="ml-2"
-                      />
+                      <div className="relative">
+                        <Switch
+                          id={`news-${key}`}
+                          checked={isEnabled}
+                          onCheckedChange={() => toggleNewsSetting(key)}
+                          className={`ml-4 border-3 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)] transition-colors duration-200 ${
+                            isEnabled 
+                              ? 'data-[state=checked]:bg-primary' 
+                              : 'bg-destructive data-[state=unchecked]:bg-destructive hover:bg-destructive/80'
+                          }`}
+                        />
+                        {isEnabled ? (
+                          <div className="absolute -top-2 -right-2 w-3 h-3 bg-accent border-2 border-border animate-pulse"></div>
+                        ) : (
+                          <div className="absolute -top-2 -right-2 w-3 h-3 bg-destructive border-2 border-border animate-pulse"></div>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
               </div>
               
-              <div className="bg-muted/50 p-3 sm:p-4 rounded-lg">
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  💡 <strong>Tip:</strong> Enable multiple categories to get a diverse mix of news articles. 
-                  Your feed updates automatically with fresh content.
-                </p>
+              <div className="bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transform rotate-1">
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">💡</div>
+                  <div>
+                    <p className="text-sm font-bold uppercase tracking-wide text-foreground">
+                      Pro Tip!
+                    </p>
+                    <p className="text-sm text-muted-foreground font-medium mt-1">
+                      Enable multiple categories to get a diverse mix of news articles. 
+                      Your feed updates automatically with fresh content.
+                    </p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="movies" className="mt-6">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
-                <Film className="w-4 h-4 sm:w-5 sm:h-5" />
-                Movie Genres
-              </CardTitle>
-              <CardDescription className="text-sm">
-                Select your favorite movie genres to get personalized recommendations and discover new films you'll love.
+        <TabsContent value="movies" className="mt-8">
+          <Card className="border-4 border-border shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:shadow-[12px_12px_0px_0px_rgb(255,255,255)] transform rotate-1 hover:rotate-0 transition-transform duration-300">
+            <CardHeader className="pb-6 bg-gradient-to-r from-secondary/10 via-accent/10 to-primary/10 border-b-4 border-border">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-3 text-xl sm:text-2xl font-black uppercase tracking-wider">
+                  <div className="p-2 bg-secondary border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+                    <Film className="w-6 h-6 text-secondary-foreground" />
+                  </div>
+                  Movie Genres
+                </CardTitle>
+                <div className="bg-primary text-primary-foreground px-4 py-2 border-3 border-border font-black text-sm uppercase shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)] transform -rotate-3">
+                  {enabledMovieCount}/{Object.keys(settings.movies).length} Genres
+                </div>
+              </div>
+              <CardDescription className="text-sm font-semibold mt-4 bg-muted border-l-4 border-secondary pl-4 py-2">
+                🎬 Select your favorite movie genres to get personalized recommendations and discover new films you'll love.
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4 sm:space-y-6">
-              <div className="text-xs sm:text-sm text-muted-foreground">
-                {enabledMovieCount} of {Object.keys(settings.movies).length} genres enabled
-              </div>
-              
-              <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
-                {(Object.keys(settings.movies) as MovieGenreCategory[]).map((key) => {
+            <CardContent className="space-y-6 p-6">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {(Object.keys(settings.movies) as MovieGenreCategory[]).map((key, index) => {
                   const { label, description, icon: Icon } = movieGenres[key];
+                  const isEnabled = settings.movies[key];
+                  
+                  // Define color variants for rotation  
+                  const colorVariants = [
+                    { bg: 'bg-secondary/10', iconBg: 'bg-secondary', iconText: 'text-secondary-foreground' },
+                    { bg: 'bg-accent/10', iconBg: 'bg-accent', iconText: 'text-accent-foreground' },
+                    { bg: 'bg-primary/10', iconBg: 'bg-primary', iconText: 'text-primary-foreground' }
+                  ];
+                  const colorSet = colorVariants[index % colorVariants.length];
+                  
                   return (
-                    <div key={key} className="flex items-center justify-between p-3 sm:p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
-                      <div className="flex items-start gap-2 sm:gap-3 flex-1 min-w-0">
-                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary mt-1 flex-shrink-0" />
+                    <div key={key} className={`group relative flex items-center justify-between p-4 border-3 border-border transition-all duration-200 hover:shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[6px_6px_0px_0px_rgb(255,255,255)] hover:translate-x-[-2px] hover:translate-y-[-2px] ${isEnabled ? `${colorSet.bg} shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]` : 'bg-card hover:bg-muted/50'}`}>
+                      <div className="flex items-start gap-3 flex-1 min-w-0">
+                        <div className={`p-2 border-3 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)] ${isEnabled ? colorSet.iconBg : 'bg-muted'} transition-all duration-200 group-hover:rotate-3`}>
+                          <Icon className={`w-4 h-4 ${isEnabled ? colorSet.iconText : 'text-muted-foreground'}`} />
+                        </div>
                         <div className="flex-1 min-w-0">
-                          <Label htmlFor={`movie-${key}`} className="text-xs sm:text-sm font-medium cursor-pointer block">
+                          <Label htmlFor={`movie-${key}`} className="text-sm font-bold cursor-pointer block uppercase tracking-wide">
                             {label}
                           </Label>
-                          <p className="text-xs text-muted-foreground line-clamp-2">{description}</p>
+                          <p className="text-xs text-muted-foreground font-medium mt-1 line-clamp-2">{description}</p>
                         </div>
                       </div>
-                      <Switch
-                        id={`movie-${key}`}
-                        checked={settings.movies[key]}
-                        onCheckedChange={() => toggleMovieSetting(key)}
-                        className="ml-2"
-                      />
+                      <div className="relative">
+                        <Switch
+                          id={`movie-${key}`}
+                          checked={isEnabled}
+                          onCheckedChange={() => toggleMovieSetting(key)}
+                          className={`ml-2 border-3 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)] transition-colors duration-200 ${
+                            isEnabled 
+                              ? 'data-[state=checked]:bg-secondary' 
+                              : 'bg-destructive data-[state=unchecked]:bg-destructive hover:bg-destructive/80'
+                          }`}
+                        />
+                        {isEnabled ? (
+                          <div className="absolute -top-2 -right-2 w-3 h-3 bg-primary border-2 border-border animate-pulse"></div>
+                        ) : (
+                          <div className="absolute -top-2 -right-2 w-3 h-3 bg-destructive border-2 border-border animate-pulse"></div>
+                        )}
+                      </div>
                     </div>
                   );
                 })}
               </div>
               
-              <div className="bg-muted/50 p-3 sm:p-4 rounded-lg">
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  🎬 <strong>Tip:</strong> Your genre preferences will help us recommend movies that match your taste. 
-                  You can always change these settings later.
-                </p>
+              <div className="bg-gradient-to-r from-secondary/20 via-accent/20 to-primary/20 p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transform -rotate-1">
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">🎬</div>
+                  <div>
+                    <p className="text-sm font-bold uppercase tracking-wide text-foreground">
+                      Movie Magic!
+                    </p>
+                    <p className="text-sm text-muted-foreground font-medium mt-1">
+                      Your genre preferences will help us recommend movies that match your taste. 
+                      You can always change these settings later.
+                    </p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
