@@ -39,17 +39,29 @@ export function MoviesPage() {
 
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const [activeTab, setActiveTab] = useState('popular');
+  const [retryCount, setRetryCount] = useState(0);
 
   // Create a Set of favorite movie IDs for quick lookup
   const favoriteMovieIds = new Set(favorites.map((movie: Movie) => movie.id));
 
-  // Load initial data
-  useEffect(() => {
+  // Function to load initial data with retry logic
+  const loadInitialData = useCallback(() => {
     dispatch(fetchPopularMovies(1));
     dispatch(fetchTrendingMovies(1));
     dispatch(fetchUpcomingMovies(1));
     dispatch(fetchTopRatedMovies(1));
   }, [dispatch]);
+
+  // Load initial data
+  useEffect(() => {
+    loadInitialData();
+  }, [loadInitialData]);
+
+  // Retry function for when there are errors
+  const handleRetry = useCallback(() => {
+    setRetryCount(prev => prev + 1);
+    loadInitialData();
+  }, [loadInitialData]);
 
   const handleLoadMore = useCallback((category: string) => {
     const nextPage = currentPage + 1;
@@ -94,12 +106,34 @@ export function MoviesPage() {
   }, []);
 
   if (error) {
+    const isNetworkError = error.includes('Request timed out') || 
+                          error.includes('Network error') || 
+                          error.includes('ERR_CONNECTION_TIMED_OUT');
+    
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-destructive mb-2">Error Loading Movies</h2>
+          <h2 className="text-2xl font-bold text-destructive mb-2">
+            {isNetworkError ? 'Connection Problem' : 'Error Loading Movies'}
+          </h2>
           <p className="text-muted-foreground mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>Try Again</Button>
+          <div className="space-x-2">
+            <Button onClick={handleRetry}>
+              {retryCount > 0 ? `Retry (${retryCount})` : 'Try Again'}
+            </Button>
+            {isNetworkError && (
+              <Button variant="outline" onClick={() => window.location.reload()}>
+                Refresh Page
+              </Button>
+            )}
+          </div>
+          {isNetworkError && (
+            <div className="mt-4 text-sm text-muted-foreground">
+              <p>• Check your internet connection</p>
+              <p>• The movie database might be temporarily unavailable</p>
+              <p>• Try refreshing the page or waiting a moment</p>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -113,6 +147,12 @@ export function MoviesPage() {
         <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Discover popular, trending, and upcoming movies. Search by title and filter by your preferences.
         </p>
+        {loading && popular.length === 0 && (
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+            Loading movies...
+          </div>
+        )}
       </div>
 
       {/* Search */}
