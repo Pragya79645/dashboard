@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import type { RootState } from '../store';
+import type { MovieState } from '../lib/types';
 import { 
   fetchPopularMovies, 
   fetchTrendingMovies, 
@@ -21,6 +23,7 @@ import { toast } from '../hooks/use-toast';
 
 export function MoviesPage() {
   const dispatch = useAppDispatch();
+  const moviesState = useAppSelector((state: RootState) => state.movies) as MovieState;
   const { 
     popular, 
     trending, 
@@ -32,7 +35,7 @@ export function MoviesPage() {
     currentPage, 
     totalPages, 
     searchQuery 
-  } = useAppSelector((state) => state.movies);
+  } = moviesState;
 
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const [activeTab, setActiveTab] = useState('popular');
