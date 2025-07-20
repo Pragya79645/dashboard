@@ -45,10 +45,12 @@ export function MovieSearch({ onSearch }: MovieSearchProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (localQuery.trim()) {
+        console.log('Searching for:', localQuery);
         dispatch(setSearchQuery(localQuery));
         dispatch(searchMovies({ query: localQuery, page: 1 }));
         onSearch?.(localQuery);
       } else if (searchQuery) {
+        console.log('Clearing search results');
         dispatch(clearSearchResults());
         dispatch(setSearchQuery(''));
       }

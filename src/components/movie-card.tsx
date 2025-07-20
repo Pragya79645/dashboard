@@ -43,7 +43,7 @@ export function MovieCard({
   };
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-100 hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)] hover:translate-x-[-4px] hover:translate-y-[-4px] bg-card h-full border-4 border-border shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)]">
+    <Card className="group relative overflow-hidden transition-all duration-100 hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)] hover:translate-x-[-4px] hover:translate-y-[-4px] bg-card h-full border-4 border-border shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] flex flex-col">
       {/* Poster Image */}
       <div className="relative aspect-[2/3] overflow-hidden">
         <img
@@ -95,13 +95,13 @@ export function MovieCard({
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0 p-2 sm:p-4 sm:pt-0 flex-1">
+      <CardContent className="pt-0 p-2 sm:p-4 sm:pt-0 flex-1 flex flex-col justify-between">
         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-4">
           {isExpanded ? movie.overview : truncateText(movie.overview, 100)}
         </p>
       </CardContent>
 
-      <CardFooter className="pt-1 sm:pt-2 p-2 sm:p-4 flex gap-1 sm:gap-2">
+      <CardFooter className="pt-1 sm:pt-2 p-2 sm:p-4 flex gap-1 sm:gap-2 mt-auto">
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm">

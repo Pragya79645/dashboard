@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/", label: "News", icon: LayoutDashboard },
   { href: "/movies", label: "Movies", icon: Film },
   { href: "/favorites", label: "Favorites", icon: Heart },
   { href: "/recommendations", label: "Recommendations", icon: Sparkles },

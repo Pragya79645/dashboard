@@ -141,11 +141,14 @@ export const tmdbApi = {
   // Search movies
   searchMovies: async (query: string, page: number = 1): Promise<TMDBMovieResponse> => {
     try {
+      console.log('API call: searching for', query, 'page', page);
       const response = await axiosInstance.get('/search/movie', {
         params: { query, page },
       });
+      console.log('API response:', response.data);
       return response.data;
     } catch (error) {
+      console.error('Search API error:', error);
       handleApiError(error, 'Failed to search movies');
       throw error;
     }

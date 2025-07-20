@@ -57,6 +57,13 @@ export function MoviesPage() {
     loadInitialData();
   }, [loadInitialData]);
 
+  // Auto-switch to search tab when there's a search query
+  useEffect(() => {
+    if (searchQuery && searchQuery.trim()) {
+      setActiveTab('search');
+    }
+  }, [searchQuery]);
+
   // Retry function for when there are errors
   const handleRetry = useCallback(() => {
     setRetryCount(prev => prev + 1);
@@ -102,6 +109,8 @@ export function MoviesPage() {
   const handleSearch = useCallback((query: string) => {
     if (query.trim()) {
       setActiveTab('search');
+      // The actual search is handled by the MovieSearch component through Redux
+      // This ensures the search tab is activated when a search is performed
     }
   }, []);
 
@@ -248,18 +257,23 @@ export function MoviesPage() {
 
         <TabsContent value="search" className="mt-12 sm:mt-8">
           {searchQuery ? (
-            <MovieGrid
-              movies={searchResults}
-              loading={loading}
-              title={`Search Results for "${searchQuery}"`}
-              onLoadMore={() => {
-                // Handle search pagination if needed
-              }}
-              hasMore={false}
-              onAddToFavorites={handleAddToFavorites}
-              favoriteMovieIds={favoriteMovieIds}
-              keyPrefix="search"
-            />
+            <>
+              <div className="mb-4 text-sm text-muted-foreground">
+                Search Query: "{searchQuery}" | Results: {searchResults.length} | Loading: {loading.toString()}
+              </div>
+              <MovieGrid
+                movies={searchResults}
+                loading={loading}
+                title={`Search Results for "${searchQuery}"`}
+                onLoadMore={() => {
+                  // Handle search pagination if needed
+                }}
+                hasMore={false}
+                onAddToFavorites={handleAddToFavorites}
+                favoriteMovieIds={favoriteMovieIds}
+                keyPrefix="search"
+              />
+            </>
           ) : (
             <div className="text-center py-12">
               <h3 className="text-base sm:text-lg font-medium text-muted-foreground mb-2">No search query</h3>

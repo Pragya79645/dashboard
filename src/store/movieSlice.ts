@@ -41,7 +41,10 @@ export const fetchTopRatedMovies = createAsyncThunk(
 export const searchMovies = createAsyncThunk(
   'movies/search',
   async ({ query, page }: { query: string; page: number }) => {
-    return await tmdbApi.searchMovies(query, page);
+    console.log('Dispatching search for:', query, 'page:', page);
+    const result = await tmdbApi.searchMovies(query, page);
+    console.log('Search results:', result);
+    return result;
   }
 );
 
@@ -181,15 +184,18 @@ const movieSlice = createSlice({
       })
       .addCase(searchMovies.fulfilled, (state, action) => {
         state.loading = false;
+        console.log('Search fulfilled, results:', action.payload.results.length);
         if (action.meta.arg.page === 1) {
           state.searchResults = action.payload.results;
         } else {
           state.searchResults = mergeMoviesUnique(state.searchResults, action.payload.results);
         }
         state.totalPages = action.payload.total_pages;
+        console.log('Updated searchResults:', state.searchResults.length);
       })
       .addCase(searchMovies.rejected, (state, action) => {
         state.loading = false;
+        console.error('Search rejected:', action.error);
         state.error = action.error.message || 'Failed to search movies';
       });
 
