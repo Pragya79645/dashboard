@@ -29,10 +29,10 @@ export function MainSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2">
+      <SidebarHeader className="p-6 border-b-4 border-border">
+        <div className="flex items-center gap-3">
            <PenSquare className="w-8 h-8 text-primary" />
-          <h1 className="text-xl font-semibold tracking-tighter text-foreground group-data-[collapsible=icon]:hidden">
+          <h1 className="text-xl font-bold tracking-wide text-foreground group-data-[collapsible=icon]:hidden uppercase">
             Content Canvas
           </h1>
         </div>
@@ -46,8 +46,8 @@ export function MainSidebar() {
                 isActive={pathname === href}
                 tooltip={{ children: label, side: 'right' }}
                 className={cn(
-                  "justify-start",
-                  pathname === href && "bg-primary/10 text-primary"
+                  "justify-start font-bold uppercase tracking-wide h-12 border-2 border-transparent hover:border-border hover:shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[4px_4px_0px_0px_rgb(255,255,255)] transition-all duration-100",
+                  pathname === href && "bg-primary text-primary-foreground border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]"
                 )}
               >
                 <Link href={href}>
@@ -59,8 +59,8 @@ export function MainSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-4 group-data-[collapsible=icon]:hidden">
-        <div className="text-xs text-muted-foreground">
+      <SidebarFooter className="p-6 border-t-4 border-border group-data-[collapsible=icon]:hidden">
+        <div className="text-sm text-muted-foreground font-bold uppercase">
             © {new Date().getFullYear()} Content Canvas
         </div>
       </SidebarFooter>

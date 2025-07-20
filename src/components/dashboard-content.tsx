@@ -77,6 +77,30 @@ export function DashboardContent() {
 
   return (
     <div className="flex flex-col gap-6 sm:gap-8">
+      {/* Neobrutalist Hero Section */}
+      <div className="relative bg-primary text-primary-foreground p-6 sm:p-8 lg:p-12 border-4 border-border shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:shadow-[12px_12px_0px_0px_rgb(255,255,255)] overflow-hidden">
+        <div className="relative z-10">
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold uppercase tracking-wide mb-4">
+            CONTENT CANVAS
+          </h1>
+          <p className="text-lg sm:text-xl font-bold uppercase tracking-wider opacity-90 mb-6 max-w-2xl">
+            YOUR BRUTALLY HONEST CONTENT DASHBOARD
+          </p>
+          <div className="flex gap-4">
+            <Button variant="secondary" size="lg" className="font-bold uppercase">
+              EXPLORE NOW
+            </Button>
+            <Button variant="outline" size="lg" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold uppercase">
+              GET STARTED
+            </Button>
+          </div>
+        </div>
+        {/* Decorative Elements */}
+        <div className="absolute top-4 right-4 w-16 h-16 bg-secondary border-4 border-border transform rotate-12"></div>
+        <div className="absolute bottom-4 right-16 w-12 h-12 bg-accent border-3 border-border transform -rotate-12"></div>
+        <div className="absolute top-1/2 -right-8 w-24 h-24 bg-destructive border-4 border-border transform rotate-45"></div>
+      </div>
+
       {/* Error Alert */}
       {error && (
         <Alert variant="destructive">
@@ -97,9 +121,9 @@ export function DashboardContent() {
 
       <section>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
-            <h2 className="text-xl sm:text-2xl font-semibold">Trending Now</h2>
+          <div className="flex items-center gap-3">
+            <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-wide">TRENDING NOW</h2>
           </div>
           {!loading && (
             <Button variant="outline" size="sm" onClick={refreshNews} className="w-fit">
@@ -127,11 +151,11 @@ export function DashboardContent() {
 
       <section>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
-          <h2 className="text-xl sm:text-2xl font-semibold">
-            {searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Content'}
+          <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-wide">
+            {searchQuery ? `SEARCH: "${searchQuery.toUpperCase()}"` : 'LATEST CONTENT'}
           </h2>
-          <div className="text-xs sm:text-sm text-muted-foreground">
-            {filteredData.length} {filteredData.length === 1 ? 'item' : 'items'}
+          <div className="text-sm font-bold uppercase tracking-wider text-muted-foreground bg-muted px-3 py-1 border-2 border-border">
+            {filteredData.length} {filteredData.length === 1 ? 'ITEM' : 'ITEMS'}
           </div>
         </div>
         

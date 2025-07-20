@@ -36,8 +36,8 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
   };
 
   const cardClasses = cn(
-    "flex flex-col h-full w-full overflow-hidden transition-all duration-300 hover:shadow-lg",
-    isCarouselItem ? "" : "hover:-translate-y-1"
+    "flex flex-col h-full w-full overflow-hidden transition-all duration-100 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] border-4 border-border hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)]",
+    isCarouselItem ? "" : "hover:translate-x-[-4px] hover:translate-y-[-4px]"
   );
   
   return (

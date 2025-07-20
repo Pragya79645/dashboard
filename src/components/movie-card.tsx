@@ -43,7 +43,7 @@ export function MovieCard({
   };
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 bg-card h-full">
+    <Card className="group relative overflow-hidden transition-all duration-100 hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)] hover:translate-x-[-4px] hover:translate-y-[-4px] bg-card h-full border-4 border-border shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)]">
       {/* Poster Image */}
       <div className="relative aspect-[2/3] overflow-hidden">
         <img

@@ -54,12 +54,12 @@ export function DashboardHeaderContent() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 sm:h-16 items-center gap-2 sm:gap-4 border-b bg-background px-3 sm:px-4 lg:px-6">
+    <header className="sticky top-0 z-10 flex h-16 sm:h-20 items-center gap-2 sm:gap-4 border-b-4 border-border bg-background px-3 sm:px-4 lg:px-6 shadow-[0_4px_0px_0px_rgb(0,0,0)] dark:shadow-[0_4px_0px_0px_rgb(255,255,255)]">
       <div className="sm:hidden">
         <SidebarTrigger />
       </div>
 
-      <h1 className="text-base sm:text-lg font-semibold md:text-xl hidden md:block">
+      <h1 className="text-base sm:text-xl font-bold md:text-2xl hidden md:block uppercase tracking-wide">
         {pageTitles[pathname] || 'Content Canvas'}
       </h1>
       
@@ -70,14 +70,14 @@ export function DashboardHeaderContent() {
             <Input
               type="search"
               placeholder="Search..."
-              className="pl-7 sm:pl-8 text-sm h-8 sm:h-10 w-full sm:w-[200px] md:w-[180px] lg:w-[250px] xl:w-[300px]"
+              className="pl-7 sm:pl-8 text-sm h-10 sm:h-12 w-full sm:w-[200px] md:w-[180px] lg:w-[250px] xl:w-[300px] border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] font-medium"
               value={searchValue}
               onChange={handleSearch}
             />
           </div>
         </form>
         <ThemeToggle />
-        <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 sm:h-9 sm:w-9">
+        <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
