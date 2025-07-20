@@ -1,5 +1,5 @@
 
-export type ContentCategory = 'tech' | 'finance' | 'sports';
+export type ContentCategory = 'tech' | 'finance' | 'sports' | 'business' | 'entertainment' | 'health' | 'science' | 'general';
 
 export interface ContentItem {
   id: string;
@@ -12,4 +12,12 @@ export interface ContentItem {
   trending?: boolean;
   link: string;
   dataAiHint?: string;
+  publishedAt?: string;
+  content?: string;
+}
+
+export interface NewsApiResponse {
+  articles: ContentItem[];
+  totalResults: number;
+  status: string;
 }

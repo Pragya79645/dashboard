@@ -11,6 +11,11 @@ const defaultSettings: Settings = {
   tech: true,
   finance: true,
   sports: true,
+  business: false,
+  entertainment: false,
+  health: false,
+  science: false,
+  general: false,
 };
 
 interface SettingsContextType {

@@ -5,11 +5,14 @@ import * as React from "react";
 import { useSearchParams } from 'next/navigation';
 import { ContentCard } from "@/components/content-card";
 import { mockData } from "@/lib/mock-data";
-import type { ContentItem } from "@/lib/types";
+import type { ContentItem, ContentCategory } from "@/lib/types";
 import { useSettings } from "@/contexts/settings-context";
+import { useNews } from "@/hooks/use-news";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { RefreshCw, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -17,23 +20,50 @@ export default function DashboardPage() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
   const { settings } = useSettings();
+  
+  // Get active categories from settings
+  const activeCategories = React.useMemo(() => {
+    return Object.entries(settings)
+      .filter(([, value]) => value)
+      .map(([key]) => key as ContentCategory);
+  }, [settings]);
+
+  // Fetch news based on active categories
+  const { articles: newsArticles, loading, error, refreshNews } = useNews({
+    categories: activeCategories,
+    pageSize: 30,
+    refreshInterval: 5 * 60 * 1000, // Refresh every 5 minutes
+  });
+
   const [filteredData, setFilteredData] = React.useState<ContentItem[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
 
   React.useEffect(() => {
-    const activeCategories = Object.entries(settings)
-      .filter(([, value]) => value)
-      .map(([key]) => key);
-
-    const newFilteredData = mockData.filter(item =>
+    // Combine news articles with mock data for fallback
+    const allData = newsArticles.length > 0 ? newsArticles : mockData;
+    
+    const newFilteredData = allData.filter(item =>
       (activeCategories.length === 0 || activeCategories.includes(item.category)) &&
       (searchQuery === '' || item.title.toLowerCase().includes(searchQuery.toLowerCase()))
     );
     setFilteredData(newFilteredData);
     setCurrentPage(1); // Reset to first page on filter change
-  }, [searchQuery, settings]);
+  }, [searchQuery, settings, newsArticles, activeCategories]);
 
-  const trendingItems = mockData.filter(item => item.trending);
+  // Use trending from mock data as fallback, or recent news articles
+  const trendingItems = React.useMemo(() => {
+    // If we have news articles, use the most recent ones as trending
+    if (newsArticles.length > 0) {
+      return newsArticles.slice(0, 6).map(article => ({
+        ...article,
+        trending: true, // Mark as trending for display purposes
+      }));
+    }
+    
+    // Fallback to mock data if no news articles are available
+    const trending = mockData.filter(item => item.trending);
+    return trending.length > 0 ? trending : mockData.slice(0, 6);
+  }, [newsArticles]);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
   const paginatedData = filteredData.slice(
@@ -43,8 +73,37 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-8">
+      {/* Error Alert */}
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>
+            {error} - Showing fallback content.
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Loading State */}
+      {loading && (
+        <div className="flex items-center justify-center p-8">
+          <RefreshCw className="h-6 w-6 animate-spin mr-2" />
+          <span>Loading personalized content...</span>
+        </div>
+      )}
+
       <section>
-        <h2 className="text-2xl font-bold tracking-tight mb-4">Trending</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-2xl font-bold tracking-tight">Trending</h2>
+          <Button
+            onClick={refreshNews}
+            variant="outline"
+            size="sm"
+            disabled={loading}
+          >
+            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            Refresh
+          </Button>
+        </div>
         <Carousel
           opts={{
             align: "start",
@@ -67,7 +126,14 @@ export default function DashboardPage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold tracking-tight mb-4">Your Feed</h2>
+        <h2 className="text-2xl font-bold tracking-tight mb-4">
+          Your Personalized Feed
+          {newsArticles.length > 0 && !loading && (
+            <span className="text-sm font-normal text-muted-foreground ml-2">
+              ({newsArticles.length} live articles)
+            </span>
+          )}
+        </h2>
         {paginatedData.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -99,9 +165,21 @@ export default function DashboardPage() {
           </>
         ) : (
           <Card className="flex items-center justify-center p-12">
-            <p className="text-muted-foreground">
-              {searchQuery ? `No results for "${searchQuery}".` : "No content to display. Adjust your preferences in Settings."}
-            </p>
+            <div className="text-center">
+              <p className="text-muted-foreground mb-4">
+                {searchQuery 
+                  ? `No results for "${searchQuery}".` 
+                  : activeCategories.length === 0
+                    ? "No content categories selected. Please enable some categories in Settings."
+                    : "No content available for your selected categories."
+                }
+              </p>
+              {activeCategories.length === 0 && (
+                <Button onClick={() => window.location.href = '/settings'} variant="outline">
+                  Go to Settings
+                </Button>
+              )}
+            </div>
           </Card>
         )}
       </section>
