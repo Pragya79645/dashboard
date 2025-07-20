@@ -36,7 +36,7 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
   };
 
   const cardClasses = cn(
-    "flex flex-col h-full w-full overflow-hidden transition-all duration-100 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] border-4 border-border hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)]",
+    "flex flex-col h-full w-full overflow-hidden transition-all duration-150 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] border-4 border-border hover:shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[12px_12px_0px_0px_rgb(255,255,255)]",
     isCarouselItem ? "" : "hover:translate-x-[-4px] hover:translate-y-[-4px]"
   );
   
@@ -55,15 +55,15 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
             unoptimized={imageError}
           />
         </Link>
-        <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 text-xs" variant="secondary">{item.category}</Badge>
+        <Badge className="absolute top-2 right-2 text-xs font-bold" variant="secondary">{item.category}</Badge>
       </CardHeader>
-      <CardContent className="flex-grow p-3 sm:p-4 space-y-2 sm:space-y-3">
-        <CardTitle className="text-sm sm:text-base lg:text-lg leading-snug line-clamp-2">
+      <CardContent className="flex-grow p-4 sm:p-5 space-y-3 min-h-0">
+        <CardTitle className="text-sm sm:text-base lg:text-lg leading-tight line-clamp-2 font-bold">
           <Link href={item.link} className="hover:text-primary transition-colors">{item.title}</Link>
         </CardTitle>
-        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">{item.description}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 leading-relaxed">{item.description}</p>
         {item.publishedAt && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-medium">
             {new Date(item.publishedAt).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
@@ -72,20 +72,20 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
           </p>
         )}
       </CardContent>
-      <CardFooter className="p-3 sm:p-4 flex justify-between items-center gap-2">
+      <CardFooter className="p-4 sm:p-5 flex justify-between items-center gap-3 border-t border-border/50">
         <div className="flex items-center gap-2 min-w-0 flex-1">
-          <Avatar className="h-6 w-6 sm:h-8 sm:w-8 flex-shrink-0">
+          <Avatar className="h-7 w-7 sm:h-8 sm:w-8 flex-shrink-0">
             <AvatarImage src={item.authorImageUrl} alt={item.author} />
-            <AvatarFallback className="text-xs">{item.author.charAt(0)}</AvatarFallback>
+            <AvatarFallback className="text-xs font-bold">{item.author.charAt(0)}</AvatarFallback>
           </Avatar>
           <span className="text-xs font-medium text-muted-foreground truncate">{item.author}</span>
         </div>
-        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0">
           <Button
             asChild
             variant="outline"
             size="sm"
-            className="text-xs sm:text-sm px-2 sm:px-3"
+            className="text-xs sm:text-sm px-3 sm:px-4 font-bold"
           >
             <Link href={item.link} target="_blank" rel="noopener noreferrer">
               <span className="hidden sm:inline">Read More</span>
@@ -97,7 +97,7 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
             size="icon"
             onClick={handleFavoriteClick}
             aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-            className="h-8 w-8 sm:h-9 sm:w-9"
+            className="h-9 w-9 flex-shrink-0"
           >
             <Heart className={cn("h-4 w-4 sm:h-5 sm:w-5", favorite ? "fill-red-500 text-red-500" : "text-muted-foreground")} />
           </Button>

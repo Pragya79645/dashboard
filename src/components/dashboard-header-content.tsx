@@ -54,30 +54,32 @@ export function DashboardHeaderContent() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 sm:h-20 items-center gap-2 sm:gap-4 border-b-4 border-border bg-background px-3 sm:px-4 lg:px-6 shadow-[0_4px_0px_0px_rgb(0,0,0)] dark:shadow-[0_4px_0px_0px_rgb(255,255,255)]">
-      <div className="sm:hidden">
+    <header className="sticky top-0 z-50 flex h-16 sm:h-20 items-center gap-3 sm:gap-4 border-b-4 border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 sm:px-6 lg:px-8 shadow-[0_4px_0px_0px_rgb(0,0,0)] dark:shadow-[0_4px_0px_0px_rgb(255,255,255)]">
+      <div className="sm:hidden flex-shrink-0">
         <SidebarTrigger />
       </div>
 
-      <h1 className="text-base sm:text-xl font-bold md:text-2xl hidden md:block uppercase tracking-wide">
+      <h1 className="text-lg sm:text-xl font-bold md:text-2xl hidden md:block uppercase tracking-wide min-w-0 flex-shrink-0">
         {pageTitles[pathname] || 'Content Canvas'}
       </h1>
       
-      <div className="flex w-full items-center gap-2 sm:gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <form className="ml-auto flex-1 sm:flex-initial" onSubmit={(e) => e.preventDefault()}>
+      <div className="flex w-full items-center gap-3 sm:gap-4 md:ml-auto md:gap-3 lg:gap-4">
+        <form className="ml-auto flex-1 sm:flex-initial max-w-md" onSubmit={(e) => e.preventDefault()}>
           <div className="relative">
-            <Search className="absolute left-2 sm:left-2.5 top-2 sm:top-2.5 h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
+            <Search className="absolute left-2.5 sm:left-3 top-2.5 sm:top-3 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search..."
-              className="pl-7 sm:pl-8 text-sm h-10 sm:h-12 w-full sm:w-[200px] md:w-[180px] lg:w-[250px] xl:w-[300px] border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] font-medium"
+              placeholder="Search content..."
+              className="pl-8 sm:pl-10 text-sm h-10 sm:h-12 w-full sm:w-[220px] md:w-[200px] lg:w-[280px] xl:w-[320px] border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] font-medium"
               value={searchValue}
               onChange={handleSearch}
             />
           </div>
         </form>
-        <ThemeToggle />
-        <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12">
+        <div className="flex-shrink-0">
+          <ThemeToggle />
+        </div>
+        <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
