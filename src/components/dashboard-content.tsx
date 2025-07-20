@@ -147,7 +147,7 @@ export function DashboardContent() {
       </section>
 
       {/* Smart Recommendations Section */}
-      <RecommendationsFeed />
+      <RecommendationsFeed contentType="news" />
 
       <section>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
