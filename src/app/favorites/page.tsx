@@ -1,26 +1,25 @@
 "use client";
 
 import { useFavorites } from "@/contexts/favorites-context";
-import { mockData } from "@/lib/mock-data";
 import { ContentCard } from "@/components/content-card";
 import { MovieCard } from "@/components/movie-card";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Film, Newspaper } from "lucide-react";
+import { Movie } from "@/lib/types";
 
 export default function FavoritesPage() {
-  const { favorites } = useFavorites();
+  const { favorites, favoriteNews, removeFromFavorites } = useFavorites();
   
-  // Get favorite news items (existing functionality)
-  const favoriteNewsIds = favorites.filter(fav => typeof fav === 'string') as string[];
-  const favoriteNewsItems = mockData.filter(item => favoriteNewsIds.includes(item.id));
+  // Get favorite news items (now using the dedicated favoriteNews array)
+  const favoriteNewsItems = favoriteNews;
   
-  // Get favorite movies (new functionality)
-  const favoriteMovies = favorites.filter(fav => typeof fav === 'object') as any[];
+  // Get favorite movies (existing functionality)
+  const favoriteMovies = favorites;
 
-  const handleRemoveFromFavorites = (movieId: number) => {
-    // This will be handled by the MovieCard component
+  const handleRemoveFromFavorites = (movie: Movie) => {
+    removeFromFavorites(movie.id);
   };
 
   return (

@@ -11,7 +11,6 @@ interface MovieGridProps {
   onLoadMore?: () => void;
   hasMore?: boolean;
   onAddToFavorites?: (movie: Movie) => void;
-  onWatchTrailer?: (movieId: number) => void;
   favoriteMovieIds?: Set<number>;
   keyPrefix?: string;
 }
@@ -23,7 +22,6 @@ export function MovieGrid({
   onLoadMore,
   hasMore = false,
   onAddToFavorites,
-  onWatchTrailer,
   favoriteMovieIds = new Set(),
   keyPrefix = 'movie',
 }: MovieGridProps) {
@@ -48,7 +46,6 @@ export function MovieGrid({
             key={`${keyPrefix}-${movie.id}-${index}`}
             movie={movie}
             onAddToFavorites={onAddToFavorites}
-            onWatchTrailer={onWatchTrailer}
             isFavorite={favoriteMovieIds.has(movie.id)}
           />
         ))}

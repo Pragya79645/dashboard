@@ -4,7 +4,7 @@ import { getImageUrl } from '../services/tmdbApi';
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
-import { Star, Calendar, Play, Heart } from 'lucide-react';
+import { Star, Calendar, Heart } from 'lucide-react';
 import { format } from 'date-fns';
 import {
   Dialog,
@@ -18,14 +18,12 @@ import {
 interface MovieCardProps {
   movie: Movie;
   onAddToFavorites?: (movie: Movie) => void;
-  onWatchTrailer?: (movieId: number) => void;
   isFavorite?: boolean;
 }
 
 export function MovieCard({ 
   movie, 
   onAddToFavorites, 
-  onWatchTrailer, 
   isFavorite = false 
 }: MovieCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -64,17 +62,6 @@ export function MovieCard({
         
         {/* Overlay with actions */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
-          {onWatchTrailer && (
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => onWatchTrailer(movie.id)}
-              className="flex items-center gap-1"
-            >
-              <Play className="w-4 h-4" />
-              Trailer
-            </Button>
-          )}
           {onAddToFavorites && (
             <Button
               size="sm"
@@ -145,12 +132,6 @@ export function MovieCard({
               </div>
               <p className="text-sm leading-relaxed">{movie.overview}</p>
               <div className="flex gap-2">
-                {onWatchTrailer && (
-                  <Button onClick={() => onWatchTrailer(movie.id)} className="flex items-center gap-2">
-                    <Play className="w-4 h-4" />
-                    Watch Trailer
-                  </Button>
-                )}
                 {onAddToFavorites && (
                   <Button
                     variant={isFavorite ? "destructive" : "outline"}

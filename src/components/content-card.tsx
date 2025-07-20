@@ -19,15 +19,15 @@ interface ContentCardProps {
 }
 
 export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) {
-  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-  const favorite = isFavorite(item.id);
+  const { isFavoriteNews, addFavorite, removeFavorite } = useFavorites();
+  const favorite = isFavoriteNews(item.id);
   const [imageError, setImageError] = React.useState(false);
 
   const handleFavoriteClick = () => {
     if (favorite) {
       removeFavorite(item.id);
     } else {
-      addFavorite(item.id);
+      addFavorite(item);
     }
   };
 

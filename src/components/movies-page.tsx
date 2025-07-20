@@ -84,14 +84,6 @@ export function MoviesPage() {
     }
   }, [favoriteMovieIds, addToFavorites, removeFromFavorites]);
 
-  const handleWatchTrailer = useCallback((movieId: number) => {
-    // This would open a trailer modal or navigate to trailer
-    toast({
-      title: "Feature Coming Soon",
-      description: "Trailer functionality will be available soon!",
-    });
-  }, []);
-
   const handleSearch = useCallback((query: string) => {
     if (query.trim()) {
       setActiveTab('search');
@@ -160,7 +152,6 @@ export function MoviesPage() {
             onLoadMore={() => handleLoadMore('popular')}
             hasMore={currentPage < totalPages}
             onAddToFavorites={handleAddToFavorites}
-            onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
             keyPrefix="popular"
           />
@@ -174,7 +165,6 @@ export function MoviesPage() {
             onLoadMore={() => handleLoadMore('trending')}
             hasMore={currentPage < totalPages}
             onAddToFavorites={handleAddToFavorites}
-            onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
             keyPrefix="trending"
           />
@@ -188,7 +178,6 @@ export function MoviesPage() {
             onLoadMore={() => handleLoadMore('upcoming')}
             hasMore={currentPage < totalPages}
             onAddToFavorites={handleAddToFavorites}
-            onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
             keyPrefix="upcoming"
           />
@@ -202,7 +191,6 @@ export function MoviesPage() {
             onLoadMore={() => handleLoadMore('top-rated')}
             hasMore={currentPage < totalPages}
             onAddToFavorites={handleAddToFavorites}
-            onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
             keyPrefix="top-rated"
           />
@@ -219,7 +207,6 @@ export function MoviesPage() {
               }}
               hasMore={false}
               onAddToFavorites={handleAddToFavorites}
-              onWatchTrailer={handleWatchTrailer}
               favoriteMovieIds={favoriteMovieIds}
               keyPrefix="search"
             />

@@ -89,12 +89,6 @@ export const tmdbApi = {
     const response = await axiosInstance.get(`/movie/${movieId}`);
     return response.data;
   },
-
-  // Get movie videos (trailers)
-  getMovieVideos: async (movieId: number) => {
-    const response = await axiosInstance.get(`/movie/${movieId}/videos`);
-    return response.data;
-  },
 };
 
 // Helper function to get full image URL
