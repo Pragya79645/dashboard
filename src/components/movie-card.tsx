@@ -124,14 +124,16 @@ export function MovieCard({
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle className="text-xl">{movie.title}</DialogTitle>
-              <DialogDescription className="flex items-center gap-2 text-sm">
-                <Calendar className="w-4 h-4" />
-                {formatDate(movie.release_date)}
-                <Badge variant="secondary" className="ml-auto flex items-center gap-1">
+              <div className="flex items-center justify-between gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  {formatDate(movie.release_date)}
+                </div>
+                <Badge variant="secondary" className="flex items-center gap-1">
                   <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                   {movie.vote_average.toFixed(1)}
                 </Badge>
-              </DialogDescription>
+              </div>
             </DialogHeader>
             <div className="space-y-4">
               <div className="aspect-video relative overflow-hidden rounded-lg">

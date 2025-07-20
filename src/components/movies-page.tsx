@@ -162,6 +162,7 @@ export function MoviesPage() {
             onAddToFavorites={handleAddToFavorites}
             onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
+            keyPrefix="popular"
           />
         </TabsContent>
 
@@ -175,6 +176,7 @@ export function MoviesPage() {
             onAddToFavorites={handleAddToFavorites}
             onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
+            keyPrefix="trending"
           />
         </TabsContent>
 
@@ -188,6 +190,7 @@ export function MoviesPage() {
             onAddToFavorites={handleAddToFavorites}
             onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
+            keyPrefix="upcoming"
           />
         </TabsContent>
 
@@ -201,6 +204,7 @@ export function MoviesPage() {
             onAddToFavorites={handleAddToFavorites}
             onWatchTrailer={handleWatchTrailer}
             favoriteMovieIds={favoriteMovieIds}
+            keyPrefix="top-rated"
           />
         </TabsContent>
 
@@ -217,6 +221,7 @@ export function MoviesPage() {
               onAddToFavorites={handleAddToFavorites}
               onWatchTrailer={handleWatchTrailer}
               favoriteMovieIds={favoriteMovieIds}
+              keyPrefix="search"
             />
           ) : (
             <div className="text-center py-12">

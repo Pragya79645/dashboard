@@ -13,6 +13,7 @@ interface MovieGridProps {
   onAddToFavorites?: (movie: Movie) => void;
   onWatchTrailer?: (movieId: number) => void;
   favoriteMovieIds?: Set<number>;
+  keyPrefix?: string;
 }
 
 export function MovieGrid({
@@ -24,6 +25,7 @@ export function MovieGrid({
   onAddToFavorites,
   onWatchTrailer,
   favoriteMovieIds = new Set(),
+  keyPrefix = 'movie',
 }: MovieGridProps) {
   if (movies.length === 0 && !loading) {
     return (
@@ -41,9 +43,9 @@ export function MovieGrid({
       )}
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
-        {movies.map((movie) => (
+        {movies.map((movie, index) => (
           <MovieCard
-            key={movie.id}
+            key={`${keyPrefix}-${movie.id}-${index}`}
             movie={movie}
             onAddToFavorites={onAddToFavorites}
             onWatchTrailer={onWatchTrailer}

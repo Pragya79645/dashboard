@@ -4,8 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { SettingsProvider } from '@/contexts/settings-context';
-import { AppShell } from '@/components/app-shell';
 import { ReduxProvider } from '@/components/redux-provider';
+import { AppShell } from '@/components/app-shell';
 
 export const metadata: Metadata = {
   title: 'Content Canvas',

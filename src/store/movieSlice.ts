@@ -2,6 +2,13 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Movie, TMDBMovieResponse, TMDBGenresResponse, MovieState, MovieFilters } from '../lib/types';
 import { tmdbApi } from '../services/tmdbApi';
 
+// Helper function to merge movies without duplicates
+const mergeMoviesUnique = (existing: Movie[], newMovies: Movie[]): Movie[] => {
+  const existingIds = new Set(existing.map(movie => movie.id));
+  const uniqueNewMovies = newMovies.filter(movie => !existingIds.has(movie.id));
+  return [...existing, ...uniqueNewMovies];
+};
+
 // Async thunks for API calls
 export const fetchPopularMovies = createAsyncThunk(
   'movies/fetchPopular',
@@ -100,7 +107,7 @@ const movieSlice = createSlice({
         if (action.meta.arg === 1) {
           state.popular = action.payload.results;
         } else {
-          state.popular = [...state.popular, ...action.payload.results];
+          state.popular = mergeMoviesUnique(state.popular, action.payload.results);
         }
         state.totalPages = action.payload.total_pages;
       })
@@ -120,7 +127,7 @@ const movieSlice = createSlice({
         if (action.meta.arg === 1) {
           state.trending = action.payload.results;
         } else {
-          state.trending = [...state.trending, ...action.payload.results];
+          state.trending = mergeMoviesUnique(state.trending, action.payload.results);
         }
       })
       .addCase(fetchTrendingMovies.rejected, (state, action) => {
@@ -139,7 +146,7 @@ const movieSlice = createSlice({
         if (action.meta.arg === 1) {
           state.upcoming = action.payload.results;
         } else {
-          state.upcoming = [...state.upcoming, ...action.payload.results];
+          state.upcoming = mergeMoviesUnique(state.upcoming, action.payload.results);
         }
       })
       .addCase(fetchUpcomingMovies.rejected, (state, action) => {
@@ -158,7 +165,7 @@ const movieSlice = createSlice({
         if (action.meta.arg === 1) {
           state.topRated = action.payload.results;
         } else {
-          state.topRated = [...state.topRated, ...action.payload.results];
+          state.topRated = mergeMoviesUnique(state.topRated, action.payload.results);
         }
       })
       .addCase(fetchTopRatedMovies.rejected, (state, action) => {
@@ -177,7 +184,7 @@ const movieSlice = createSlice({
         if (action.meta.arg.page === 1) {
           state.searchResults = action.payload.results;
         } else {
-          state.searchResults = [...state.searchResults, ...action.payload.results];
+          state.searchResults = mergeMoviesUnique(state.searchResults, action.payload.results);
         }
         state.totalPages = action.payload.total_pages;
       })
@@ -203,7 +210,7 @@ const movieSlice = createSlice({
         if (action.meta.arg.page === 1) {
           state.searchResults = action.payload.results;
         } else {
-          state.searchResults = [...state.searchResults, ...action.payload.results];
+          state.searchResults = mergeMoviesUnique(state.searchResults, action.payload.results);
         }
         state.totalPages = action.payload.total_pages;
       })

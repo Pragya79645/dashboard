@@ -64,9 +64,9 @@ export default function FavoritesPage() {
                 <div>
                   <h2 className="text-xl font-semibold mb-4">Favorite Movies</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    {favoriteMovies.map(movie => (
+                    {favoriteMovies.map((movie, index) => (
                       <MovieCard
-                        key={movie.id}
+                        key={`favorite-movie-${movie.id}-${index}`}
                         movie={movie}
                         isFavorite={true}
                         onAddToFavorites={handleRemoveFromFavorites}
@@ -110,9 +110,9 @@ export default function FavoritesPage() {
           <TabsContent value="movies" className="mt-6">
             {favoriteMovies.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {favoriteMovies.map(movie => (
+                {favoriteMovies.map((movie, index) => (
                   <MovieCard
-                    key={movie.id}
+                    key={`favorite-movies-tab-${movie.id}-${index}`}
                     movie={movie}
                     isFavorite={true}
                     onAddToFavorites={handleRemoveFromFavorites}
