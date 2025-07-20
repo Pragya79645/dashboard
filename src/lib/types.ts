@@ -1,6 +1,29 @@
 
 export type ContentCategory = 'tech' | 'finance' | 'sports' | 'business' | 'entertainment' | 'health' | 'science' | 'general';
 
+export type NewsCategory = 'technology' | 'science' | 'business' | 'health' | 'sports' | 'entertainment' | 'general';
+
+export type MovieGenreCategory = 
+  | 'action' 
+  | 'adventure' 
+  | 'animation' 
+  | 'comedy' 
+  | 'crime' 
+  | 'documentary' 
+  | 'drama' 
+  | 'family' 
+  | 'fantasy' 
+  | 'history' 
+  | 'horror' 
+  | 'music' 
+  | 'mystery' 
+  | 'romance' 
+  | 'science_fiction' 
+  | 'tv_movie' 
+  | 'thriller' 
+  | 'war' 
+  | 'western';
+
 export interface ContentItem {
   id: string;
   category: ContentCategory;

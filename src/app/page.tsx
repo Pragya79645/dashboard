@@ -21,9 +21,11 @@ export default function DashboardPage() {
   const searchQuery = searchParams.get('q') || '';
   const { settings } = useSettings();
   
-  // Get active categories from settings
+  // Get active categories from settings (backward compatibility)
   const activeCategories = React.useMemo(() => {
-    return Object.entries(settings)
+    // Use the content settings for existing functionality
+    const contentSettings = settings.content || {};
+    return Object.entries(contentSettings)
       .filter(([, value]) => value)
       .map(([key]) => key as ContentCategory);
   }, [settings]);

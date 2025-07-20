@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, X, Filter } from 'lucide-react';
+import { Search, X, Filter, Heart } from 'lucide-react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -18,6 +18,7 @@ import {
 import { Checkbox } from './ui/checkbox';
 import { Label } from './ui/label';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { useContentPreferences } from '../hooks/useContentPreferences';
 import { searchMovies, discoverMovies, setSearchQuery, setFilters, clearSearchResults, fetchGenres } from '../store/movieSlice';
 import { MovieFilters } from '../lib/types';
 
@@ -28,6 +29,7 @@ interface MovieSearchProps {
 export function MovieSearch({ onSearch }: MovieSearchProps) {
   const dispatch = useAppDispatch();
   const { searchQuery, filters, genres } = useAppSelector((state) => state.movies);
+  const { movies: moviePreferences } = useContentPreferences();
   const [localQuery, setLocalQuery] = useState(searchQuery);
   const [localFilters, setLocalFilters] = useState<MovieFilters>(filters);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -78,6 +80,19 @@ export function MovieSearch({ onSearch }: MovieSearchProps) {
     dispatch(clearSearchResults());
   };
 
+  const applyUserPreferences = () => {
+    if (moviePreferences.hasPreferences) {
+      const preferencesFilters: MovieFilters = {
+        ...localFilters,
+        genres: moviePreferences.genreIds,
+      };
+      setLocalFilters(preferencesFilters);
+      dispatch(setFilters(preferencesFilters));
+      dispatch(discoverMovies({ filters: preferencesFilters, page: 1 }));
+      setIsFilterOpen(false);
+    }
+  };
+
   const handleGenreToggle = (genreId: number, checked: boolean) => {
     const newGenres = checked
       ? [...localFilters.genres, genreId]
@@ -119,6 +134,19 @@ export function MovieSearch({ onSearch }: MovieSearchProps) {
 
       {/* Filters */}
       <div className="flex items-center gap-2 flex-wrap">
+        {/* Use My Preferences Button */}
+        {moviePreferences.hasPreferences && (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={applyUserPreferences}
+            className="flex items-center gap-2"
+          >
+            <Heart className="w-4 h-4" />
+            Use My Preferences
+          </Button>
+        )}
+
         <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
           <PopoverTrigger asChild>
             <Button variant="outline" size="sm" className="flex items-center gap-2">
@@ -135,10 +163,34 @@ export function MovieSearch({ onSearch }: MovieSearchProps) {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h4 className="font-medium">Filters</h4>
-                <Button variant="ghost" size="sm" onClick={clearFilters}>
-                  Clear All
-                </Button>
+                <div className="flex gap-2">
+                  {moviePreferences.hasPreferences && (
+                    <Button variant="ghost" size="sm" onClick={applyUserPreferences}>
+                      <Heart className="w-3 h-3 mr-1" />
+                      My Genres
+                    </Button>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                    Clear All
+                  </Button>
+                </div>
               </div>
+
+              {!moviePreferences.hasPreferences && (
+                <div className="bg-muted/50 p-3 rounded-lg">
+                  <p className="text-xs text-muted-foreground mb-2">
+                    💡 Set your movie preferences in Settings to get personalized recommendations!
+                  </p>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => window.open('/settings', '_blank')}
+                    className="w-full"
+                  >
+                    Go to Settings
+                  </Button>
+                </div>
+              )}
 
               {/* Sort By */}
               <div className="space-y-2">
