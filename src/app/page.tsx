@@ -7,12 +7,14 @@ import { ContentCard } from "@/components/content-card";
 import { mockData } from "@/lib/mock-data";
 import type { ContentItem, ContentCategory } from "@/lib/types";
 import { useSettings } from "@/contexts/settings-context";
+import { useFavorites } from "@/contexts/favorites-context";
 import { useNews } from "@/hooks/use-news";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, AlertCircle } from "lucide-react";
+import { RefreshCw, AlertCircle, Sparkles } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { RecommendationsFeed } from "@/components/recommendations-feed";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -20,6 +22,7 @@ export default function DashboardPage() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q') || '';
   const { settings } = useSettings();
+  const { movieRecommendations, newsRecommendations } = useFavorites();
   
   // Get active categories from settings (backward compatibility)
   const activeCategories = React.useMemo(() => {
@@ -126,6 +129,15 @@ export default function DashboardPage() {
           <CarouselNext className="mr-14" />
         </Carousel>
       </section>
+
+      {/* Recommendations Section - Only show news recommendations in news feed */}
+      <RecommendationsFeed 
+        showHeader={true}
+        maxMoviesPerSection={5}
+        maxArticlesPerSection={3}
+        showAllRecommendations={false}
+        contentType="news"
+      />
 
       <section>
         <h2 className="text-2xl font-bold tracking-tight mb-4">

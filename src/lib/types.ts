@@ -101,3 +101,26 @@ export interface MovieState {
   totalPages: number;
   searchQuery: string;
 }
+
+// Recommendation Types
+export interface MovieRecommendation {
+  id: string;
+  movies: Movie[];
+  basedOnMovieId: number;
+  basedOnMovieTitle: string;
+  createdAt: string;
+}
+
+export interface NewsRecommendation {
+  id: string;
+  articles: ContentItem[];
+  basedOnArticleId: string;
+  basedOnArticleTitle: string;
+  basedOnCategory: ContentCategory;
+  createdAt: string;
+}
+
+export interface RecommendationsState {
+  movieRecommendations: MovieRecommendation[];
+  newsRecommendations: NewsRecommendation[];
+}

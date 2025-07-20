@@ -3,10 +3,12 @@
 import { useFavorites } from "@/contexts/favorites-context";
 import { ContentCard } from "@/components/content-card";
 import { MovieCard } from "@/components/movie-card";
+import { RecommendationsDisplay } from "@/components/recommendations-display";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Film, Newspaper } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Heart, Film, Newspaper, Sparkles } from "lucide-react";
 import { Movie } from "@/lib/types";
 
 export default function FavoritesPage() {
@@ -129,6 +131,48 @@ export default function FavoritesPage() {
             )}
           </TabsContent>
         </Tabs>
+      )}
+
+      {/* Recommendations Section */}
+      {(favoriteMovies.length > 0 || favoriteNewsItems.length > 0) && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+              <Sparkles className="h-6 w-6 text-primary" />
+              Recommendations Based on Your Favorites
+            </h2>
+            <Button
+              onClick={() => window.location.href = '/recommendations'}
+              variant="outline"
+              size="sm"
+            >
+              View All Recommendations
+            </Button>
+          </div>
+
+          {/* Show recommendations for recent favorites */}
+          {favoriteMovies.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Similar Movies</h3>
+              <RecommendationsDisplay 
+                movieId={favoriteMovies[favoriteMovies.length - 1].id}
+                maxItems={6}
+                showTitle={false}
+              />
+            </div>
+          )}
+
+          {favoriteNewsItems.length > 0 && (
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Related Articles</h3>
+              <RecommendationsDisplay 
+                articleId={favoriteNewsItems[favoriteNewsItems.length - 1].id}
+                maxItems={6}
+                showTitle={false}
+              />
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
