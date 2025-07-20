@@ -54,12 +54,12 @@ export function DashboardHeaderContent() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 sm:h-20 items-center gap-3 sm:gap-4 border-b-4 border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 sm:px-6 lg:px-8 shadow-[0_4px_0px_0px_rgb(0,0,0)] dark:shadow-[0_4px_0px_0px_rgb(255,255,255)]">
+    <header className="sticky top-0 z-50 flex h-16 sm:h-20 items-center gap-3 sm:gap-4 border-b-4 border-border bg-gradient-to-r from-blue-50/90 via-purple-50/90 to-indigo-50/90 dark:from-blue-950/90 dark:via-purple-950/90 dark:to-indigo-950/90 backdrop-blur supports-[backdrop-filter]:bg-blue-50/60 px-4 sm:px-6 lg:px-8 shadow-[0_8px_0px_0px_rgb(0,0,0)] dark:shadow-[0_8px_0px_0px_rgb(255,255,255)]">
       <div className="sm:hidden flex-shrink-0">
-        <SidebarTrigger />
+        <SidebarTrigger className="h-10 w-10 border-2 border-border bg-white dark:bg-gray-800 shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)] hover:shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[4px_4px_0px_0px_rgb(255,255,255)] transition-all" />
       </div>
 
-      <h1 className="text-lg sm:text-xl font-bold md:text-2xl hidden md:block uppercase tracking-wide min-w-0 flex-shrink-0">
+      <h1 className="text-lg sm:text-xl font-black md:text-2xl hidden md:block uppercase tracking-wider min-w-0 flex-shrink-0 text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
         {pageTitles[pathname] || 'Content Canvas'}
       </h1>
       
@@ -70,7 +70,7 @@ export function DashboardHeaderContent() {
             <Input
               type="search"
               placeholder="Search content..."
-              className="pl-8 sm:pl-10 text-sm h-10 sm:h-12 w-full sm:w-[220px] md:w-[200px] lg:w-[280px] xl:w-[320px] border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] font-medium"
+              className="pl-8 sm:pl-10 text-sm h-10 sm:h-12 w-full sm:w-[220px] md:w-[200px] lg:w-[280px] xl:w-[320px] border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] font-bold uppercase tracking-wide bg-white dark:bg-gray-800 focus:shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:focus:shadow-[8px_8px_0px_0px_rgb(255,255,255)] transition-all"
               value={searchValue}
               onChange={handleSearch}
             />
@@ -79,7 +79,8 @@ export function DashboardHeaderContent() {
         <div className="flex-shrink-0">
           <ThemeToggle />
         </div>
-        <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0">
+        <Button variant="ghost" size="icon" className="h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 border-3 border-transparent hover:border-border bg-white dark:bg-gray-800 shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] hover:shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transition-all"
+        >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"

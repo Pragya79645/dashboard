@@ -14,9 +14,10 @@ import {
 import { MovieGrid } from './movie-grid';
 import { MovieSearch } from './movie-search';
 import { Button } from './ui/button';
+import { Card } from './ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
-import { Film, TrendingUp, Calendar, Star } from 'lucide-react';
+import { Film, TrendingUp, Calendar, Star, Search, Clapperboard } from 'lucide-react';
 import { Movie } from '../lib/types';
 import { useFavorites } from '../contexts/favorites-context';
 import { toast } from '../hooks/use-toast';
@@ -121,87 +122,183 @@ export function MoviesPage() {
     
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-destructive mb-2">
-            {isNetworkError ? 'Connection Problem' : 'Error Loading Movies'}
-          </h2>
-          <p className="text-muted-foreground mb-4">{error}</p>
-          <div className="space-x-2">
-            <Button onClick={handleRetry}>
-              {retryCount > 0 ? `Retry (${retryCount})` : 'Try Again'}
+        <Card className="flex flex-col items-center justify-center p-8 sm:p-12 space-y-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-red-50 via-background to-red-50 dark:from-red-950 dark:to-red-950">
+          <div className="p-6 bg-red-500 text-white rounded-full border-4 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+            <Film className="w-12 h-12 sm:w-16 sm:h-16" />
+          </div>
+          <div className="text-center space-y-3">
+            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-wide text-destructive">
+              {isNetworkError ? 'Connection Problem' : 'Error Loading Movies'}
+            </h2>
+            <p className="text-muted-foreground text-center text-sm sm:text-base max-w-md font-bold uppercase tracking-wide">{error}</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button 
+              onClick={handleRetry}
+              className="border-4 border-border font-bold uppercase tracking-wide shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] hover:shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transition-all bg-red-500 hover:bg-red-600 text-white"
+            >
+              {retryCount > 0 ? `🔄 Retry (${retryCount})` : '🔄 Try Again'}
             </Button>
             {isNetworkError && (
-              <Button variant="outline" onClick={() => window.location.reload()}>
-                Refresh Page
+              <Button 
+                variant="outline"
+                onClick={() => window.location.reload()}
+                className="border-4 border-border font-bold uppercase tracking-wide shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] hover:shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[6px_6px_0px_0px_rgb(255,255,255)] transition-all"
+              >
+                🔃 Refresh Page
               </Button>
             )}
           </div>
           {isNetworkError && (
-            <div className="mt-4 text-sm text-muted-foreground">
-              <p>• Check your internet connection</p>
-              <p>• The movie database might be temporarily unavailable</p>
-              <p>• Try refreshing the page or waiting a moment</p>
-            </div>
+            <Card className="p-4 border-2 border-border bg-muted/50">
+              <div className="text-sm text-muted-foreground space-y-1 font-bold uppercase tracking-wide">
+                <p>• Check your internet connection</p>
+                <p>• The movie database might be temporarily unavailable</p>
+                <p>• Try refreshing the page or waiting a moment</p>
+              </div>
+            </Card>
           )}
-        </div>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 sm:space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-2 sm:space-y-4 px-4 sm:px-0">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">Movie Explorer</h1>
-        <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Discover popular, trending, and upcoming movies. Search by title and filter by your preferences.
-        </p>
-        {loading && popular.length === 0 && (
-          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
-            Loading movies...
+    <div className="space-y-6">
+      {/* Enhanced Header */}
+      <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-950 dark:via-purple-950 dark:to-indigo-950 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] mx-4 sm:mx-0">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-blue-500 text-white rounded-lg border-4 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+                <Clapperboard className="h-8 w-8" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-black tracking-wider text-foreground uppercase leading-none">
+                  Movie
+                </h1>
+                <h2 className="text-2xl font-bold tracking-wide text-blue-500 uppercase">
+                  Explorer
+                </h2>
+              </div>
+            </div>
+            <p className="text-muted-foreground font-bold text-lg uppercase tracking-wide">
+              Discover popular, trending & upcoming movies
+            </p>
           </div>
-        )}
-      </div>
+          
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <Badge className="bg-blue-500 text-white border-2 border-border font-bold uppercase tracking-wide">
+                🎬 {popular.length + trending.length + upcoming.length + topRated.length} Movies Loaded
+              </Badge>
+            </div>
+            {loading && popular.length === 0 && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground font-bold uppercase tracking-wide">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                Loading Latest Movies...
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Badge 
+                variant="outline" 
+                className="border-2 border-blue-500 text-blue-500 font-bold uppercase tracking-wide bg-background"
+              >
+                🔥 {popular.length} Popular
+              </Badge>
+              <Badge 
+                variant="outline" 
+                className="border-2 border-purple-500 text-purple-500 font-bold uppercase tracking-wide bg-background"
+              >
+                📈 {trending.length} Trending
+              </Badge>
+              <Badge 
+                variant="outline" 
+                className="border-2 border-indigo-500 text-indigo-500 font-bold uppercase tracking-wide bg-background"
+              >
+                🗓️ {upcoming.length} Upcoming
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </Card>
 
-      {/* Search */}
-      <div className="px-4 sm:px-0">
-        <MovieSearch onSearch={handleSearch} />
-      </div>
+      {/* Search Section */}
+      <Card className="p-6 border-4 border-border bg-gradient-to-r from-background via-primary/5 to-background mx-4 sm:mx-0">
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <div className="p-2 bg-primary text-primary-foreground rounded border-2 border-border">
+              <Search className="h-5 w-5" />
+            </div>
+            <h3 className="font-bold text-xl uppercase tracking-wide text-foreground">
+              Search Movies
+            </h3>
+          </div>
+          <MovieSearch onSearch={handleSearch} />
+        </div>
+      </Card>
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="px-4 sm:px-0">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
-          <TabsTrigger value="popular" className="flex items-center gap-1 text-xs sm:text-sm">
-            <Film className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Popular</span>
-            <span className="sm:hidden">Pop</span>
-            <Badge variant="secondary" className="text-xs">{popular.length}</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="trending" className="flex items-center gap-1 text-xs sm:text-sm">
-            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Trending</span>
-            <span className="sm:hidden">Trend</span>
-            <Badge variant="secondary" className="text-xs">{trending.length}</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="upcoming" className="flex items-center gap-1 text-xs sm:text-sm">
-            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Upcoming</span>
-            <span className="sm:hidden">Soon</span>
-            <Badge variant="secondary" className="text-xs">{upcoming.length}</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="top-rated" className="flex items-center gap-1 text-xs sm:text-sm">
-            <Star className="w-3 h-3 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Top Rated</span>
-            <span className="sm:hidden">Top</span>
-            <Badge variant="secondary" className="text-xs">{topRated.length}</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="search" className="flex items-center gap-1 text-xs sm:text-sm col-span-2 sm:col-span-1 lg:col-span-1">
-            <span className="hidden sm:inline">Search Results</span>
-            <span className="sm:hidden">Search</span>
-            {searchQuery && <Badge variant="secondary" className="text-xs">{searchResults.length}</Badge>}
-          </TabsTrigger>
-        </TabsList>
+        <Card className="p-6 border-4 border-border bg-gradient-to-r from-background via-primary/5 to-background">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-primary text-primary-foreground rounded border-2 border-border">
+                <Film className="h-5 w-5" />
+              </div>
+              <h3 className="font-bold text-xl uppercase tracking-wide text-foreground">
+                Browse Categories
+              </h3>
+            </div>
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-4 border-border bg-muted shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+              <TabsTrigger 
+                value="popular" 
+                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
+              >
+                <Film className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Popular</span>
+                <span className="sm:hidden">Pop</span>
+                <Badge variant="secondary" className="text-xs font-bold">{popular.length}</Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="trending" 
+                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-purple-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+              >
+                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Trending</span>
+                <span className="sm:hidden">Trend</span>
+                <Badge variant="secondary" className="text-xs font-bold">{trending.length}</Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="upcoming" 
+                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+              >
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Upcoming</span>
+                <span className="sm:hidden">Soon</span>
+                <Badge variant="secondary" className="text-xs font-bold">{upcoming.length}</Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="top-rated" 
+                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-yellow-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+              >
+                <Star className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Top Rated</span>
+                <span className="sm:hidden">Top</span>
+                <Badge variant="secondary" className="text-xs font-bold">{topRated.length}</Badge>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="search" 
+                className="flex items-center gap-1 text-xs sm:text-sm col-span-2 sm:col-span-1 lg:col-span-1 font-bold uppercase tracking-wide data-[state=active]:bg-green-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+              >
+                <Search className="w-3 h-3 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Search Results</span>
+                <span className="sm:hidden">Search</span>
+                {searchQuery && <Badge variant="secondary" className="text-xs font-bold">{searchResults.length}</Badge>}
+              </TabsTrigger>
+            </TabsList>
+          </div>
+        </Card>
 
         <TabsContent value="popular" className="mt-12 sm:mt-8">
           <MovieGrid
@@ -257,14 +354,24 @@ export function MoviesPage() {
 
         <TabsContent value="search" className="mt-12 sm:mt-8">
           {searchQuery ? (
-            <>
-              <div className="mb-4 text-sm text-muted-foreground">
-                Search Query: "{searchQuery}" | Results: {searchResults.length} | Loading: {loading.toString()}
-              </div>
+            <div className="space-y-4">
+              <Card className="p-4 border-4 border-border bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-green-500 text-white rounded border-2 border-border">
+                    <Search className="h-5 w-5" />
+                  </div>
+                  <h2 className="text-lg sm:text-xl font-black uppercase tracking-wide text-foreground">
+                    Search Results for "{searchQuery}"
+                  </h2>
+                  <Badge className="bg-green-500 text-white border-2 border-border font-bold">
+                    {searchResults.length} Found
+                  </Badge>
+                </div>
+              </Card>
               <MovieGrid
                 movies={searchResults}
                 loading={loading}
-                title={`Search Results for "${searchQuery}"`}
+                title=""
                 onLoadMore={() => {
                   // Handle search pagination if needed
                 }}
@@ -273,12 +380,17 @@ export function MoviesPage() {
                 favoriteMovieIds={favoriteMovieIds}
                 keyPrefix="search"
               />
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <h3 className="text-base sm:text-lg font-medium text-muted-foreground mb-2">No search query</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">Enter a movie title to search</p>
             </div>
+          ) : (
+            <Card className="flex flex-col items-center justify-center p-8 sm:p-12 space-y-4 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-green-50 via-background to-green-50 dark:from-green-950 dark:to-green-950">
+              <div className="p-4 bg-green-500 text-white rounded-full border-4 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]">
+                <Search className="w-12 h-12 sm:w-16 sm:h-16" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-black uppercase tracking-wide">No Search Query</h3>
+              <p className="text-muted-foreground text-center text-sm sm:text-base font-bold uppercase tracking-wide">
+                Enter a movie title to search our database
+              </p>
+            </Card>
           )}
         </TabsContent>
       </Tabs>

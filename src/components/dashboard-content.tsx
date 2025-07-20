@@ -11,6 +11,7 @@ import { useNews } from "@/hooks/use-news";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { RefreshCw, AlertCircle, Sparkles } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RecommendationsFeed } from "@/components/recommendations-feed";
@@ -76,30 +77,64 @@ export function DashboardContent() {
   );
 
   return (
-    <div className="flex flex-col gap-8 sm:gap-10 lg:gap-12">
-      {/* Neobrutalist Hero Section */}
-      <div className="relative bg-primary text-primary-foreground p-6 sm:p-8 lg:p-12 xl:p-16 border-4 border-border shadow-[12px_12px_0px_0px_rgb(0,0,0)] dark:shadow-[12px_12px_0px_0px_rgb(255,255,255)] overflow-hidden">
-        <div className="relative z-10 space-y-6">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold uppercase tracking-wide leading-tight">
-            CONTENT CANVAS
-          </h1>
-          <p className="text-base sm:text-lg lg:text-xl font-bold uppercase tracking-wider opacity-90 max-w-2xl leading-relaxed">
-            YOUR BRUTALLY HONEST CONTENT DASHBOARD
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button variant="secondary" size="lg" className="font-bold uppercase text-sm sm:text-base">
-              EXPLORE NOW
-            </Button>
-            <Button variant="outline" size="lg" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold uppercase text-sm sm:text-base">
-              GET STARTED
-            </Button>
+    <div className="space-y-6">
+      {/* Enhanced Header */}
+      <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-950 dark:via-purple-950 dark:to-indigo-950 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] mx-4 sm:mx-0">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-blue-500 text-white rounded-lg border-4 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+                <Sparkles className="h-8 w-8" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-black tracking-wider text-foreground uppercase leading-none">
+                  Content
+                </h1>
+                <h2 className="text-2xl font-bold tracking-wide text-blue-500 uppercase">
+                  Dashboard
+                </h2>
+              </div>
+            </div>
+            <p className="text-muted-foreground font-bold text-lg uppercase tracking-wide">
+              Your personalized content discovery center
+            </p>
+          </div>
+          
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-3">
+              <Badge className="bg-blue-500 text-white border-2 border-border font-bold uppercase tracking-wide">
+                📊 {filteredData.length} Items Available
+              </Badge>
+            </div>
+            {loading && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground font-bold uppercase tracking-wide">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+                Loading Latest Content...
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Badge 
+                variant="outline" 
+                className="border-2 border-blue-500 text-blue-500 font-bold uppercase tracking-wide bg-background"
+              >
+                🔥 {trendingItems.length} Trending
+              </Badge>
+              <Badge 
+                variant="outline" 
+                className="border-2 border-purple-500 text-purple-500 font-bold uppercase tracking-wide bg-background"
+              >
+                📰 {newsArticles.length} News
+              </Badge>
+              <Badge 
+                variant="outline" 
+                className="border-2 border-indigo-500 text-indigo-500 font-bold uppercase tracking-wide bg-background"
+              >
+                ⭐ {activeCategories.length} Categories
+              </Badge>
+            </div>
           </div>
         </div>
-        {/* Decorative Elements */}
-        <div className="absolute top-4 right-4 w-12 h-12 sm:w-16 sm:h-16 bg-secondary border-4 border-border transform rotate-12"></div>
-        <div className="absolute bottom-4 right-16 w-8 h-8 sm:w-12 sm:h-12 bg-accent border-3 border-border transform -rotate-12"></div>
-        <div className="absolute top-1/2 -right-6 sm:-right-8 w-16 h-16 sm:w-24 sm:h-24 bg-destructive border-4 border-border transform rotate-45"></div>
-      </div>
+      </Card>
 
       {/* Error Alert */}
       {error && (
