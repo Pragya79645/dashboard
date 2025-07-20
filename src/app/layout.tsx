@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { SettingsProvider } from '@/contexts/settings-context';
 import { AppShell } from '@/components/app-shell';
+import { ReduxProvider } from '@/components/redux-provider';
 
 export const metadata: Metadata = {
   title: 'Content Canvas',
@@ -24,14 +25,16 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <FavoritesProvider>
-            <SettingsProvider>
-              <AppShell>{children}</AppShell>
-              <Toaster />
-            </SettingsProvider>
-          </FavoritesProvider>
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <FavoritesProvider>
+              <SettingsProvider>
+                <AppShell>{children}</AppShell>
+                <Toaster />
+              </SettingsProvider>
+            </FavoritesProvider>
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

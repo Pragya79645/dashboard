@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, LayoutDashboard, Settings, PenSquare } from "lucide-react";
+import { Heart, LayoutDashboard, Settings, PenSquare, Film } from "lucide-react";
 
 import {
   Sidebar,
@@ -17,6 +17,7 @@ import { cn } from "@/lib/utils";
 
 const menuItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/movies", label: "Movies", icon: Film },
   { href: "/favorites", label: "Favorites", icon: Heart },
   { href: "/settings", label: "Settings", icon: Settings },
 ];

@@ -1,0 +1,10 @@
+<!-- This is a placeholder for a movie poster image -->
+<!-- You should replace this with an actual placeholder image -->
+<svg width="300" height="450" viewBox="0 0 300 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="450" fill="#f1f5f9"/>
+  <rect x="75" y="175" width="150" height="100" rx="8" fill="#e2e8f0"/>
+  <path d="M125 200L150 225L175 200" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="135" cy="210" r="5" fill="#94a3b8"/>
+  <text x="150" y="310" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">No Poster</text>
+  <text x="150" y="330" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#64748b">Available</text>
+</svg>

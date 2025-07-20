@@ -2,33 +2,36 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
 import useLocalStorage from '@/hooks/use-local-storage';
+import { Movie } from '../lib/types';
 
 interface FavoritesContextType {
-  favorites: string[];
-  addFavorite: (id: string) => void;
-  removeFavorite: (id: string) => void;
-  isFavorite: (id: string) => boolean;
+  favorites: Movie[];
+  addToFavorites: (movie: Movie) => void;
+  removeFromFavorites: (movieId: number) => void;
+  isFavorite: (movieId: number) => boolean;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useLocalStorage<string[]>('favorites', []);
+  const [favorites, setFavorites] = useLocalStorage<Movie[]>('movie-favorites', []);
 
-  const addFavorite = (id: string) => {
-    setFavorites([...favorites, id]);
+  const addToFavorites = (movie: Movie) => {
+    if (!favorites.some(fav => fav.id === movie.id)) {
+      setFavorites([...favorites, movie]);
+    }
   };
 
-  const removeFavorite = (id: string) => {
-    setFavorites(favorites.filter(favId => favId !== id));
+  const removeFromFavorites = (movieId: number) => {
+    setFavorites(favorites.filter(movie => movie.id !== movieId));
   };
 
-  const isFavorite = (id: string) => {
-    return favorites.includes(id);
+  const isFavorite = (movieId: number) => {
+    return favorites.some(movie => movie.id === movieId);
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites, isFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );
