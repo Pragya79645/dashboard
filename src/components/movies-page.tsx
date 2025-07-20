@@ -194,7 +194,7 @@ export function MoviesPage() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="popular" className="mt-6 sm:mt-8">
+        <TabsContent value="popular" className="mt-12 sm:mt-8">
           <MovieGrid
             movies={popular}
             loading={loading}
@@ -207,7 +207,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="trending" className="mt-6 sm:mt-8">
+        <TabsContent value="trending" className="mt-12 sm:mt-8">
           <MovieGrid
             movies={trending}
             loading={loading}
@@ -220,7 +220,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="upcoming" className="mt-6 sm:mt-8">
+        <TabsContent value="upcoming" className="mt-12 sm:mt-8">
           <MovieGrid
             movies={upcoming}
             loading={loading}
@@ -233,7 +233,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="top-rated" className="mt-6 sm:mt-8">
+        <TabsContent value="top-rated" className="mt-12 sm:mt-8">
           <MovieGrid
             movies={topRated}
             loading={loading}
@@ -246,7 +246,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="search" className="mt-6 sm:mt-8">
+        <TabsContent value="search" className="mt-12 sm:mt-8">
           {searchQuery ? (
             <MovieGrid
               movies={searchResults}
