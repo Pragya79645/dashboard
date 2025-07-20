@@ -76,7 +76,7 @@ export function DashboardContent() {
   );
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6 sm:gap-8">
       {/* Error Alert */}
       {error && (
         <Alert variant="destructive">
@@ -89,20 +89,20 @@ export function DashboardContent() {
 
       {/* Loading State */}
       {loading && (
-        <div className="flex items-center justify-center p-8">
+        <div className="flex items-center justify-center p-6 sm:p-8">
           <RefreshCw className="h-6 w-6 animate-spin mr-2" />
-          <span>Loading personalized content...</span>
+          <span className="text-sm sm:text-base">Loading personalized content...</span>
         </div>
       )}
 
       <section>
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-primary" />
-            <h2 className="text-2xl font-semibold">Trending Now</h2>
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+            <h2 className="text-xl sm:text-2xl font-semibold">Trending Now</h2>
           </div>
           {!loading && (
-            <Button variant="outline" size="sm" onClick={refreshNews}>
+            <Button variant="outline" size="sm" onClick={refreshNews} className="w-fit">
               <RefreshCw className="h-4 w-4 mr-2" />
               Refresh
             </Button>
@@ -112,13 +112,13 @@ export function DashboardContent() {
         <Carousel className="w-full" opts={{ align: "start", loop: true }}>
           <CarouselContent className="-ml-2 md:-ml-4">
             {trendingItems.map((item, index) => (
-              <CarouselItem key={`trending-${item.id}-${index}`} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+              <CarouselItem key={`trending-${item.id}-${index}`} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <ContentCard item={item} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
+          <CarouselPrevious className="left-2 hidden sm:flex" />
+          <CarouselNext className="right-2 hidden sm:flex" />
         </Carousel>
       </section>
 
@@ -126,18 +126,18 @@ export function DashboardContent() {
       <RecommendationsFeed />
 
       <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-semibold">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-semibold">
             {searchQuery ? `Search Results for "${searchQuery}"` : 'Latest Content'}
           </h2>
-          <div className="text-sm text-muted-foreground">
+          <div className="text-xs sm:text-sm text-muted-foreground">
             {filteredData.length} {filteredData.length === 1 ? 'item' : 'items'}
           </div>
         </div>
         
         {paginatedData.length > 0 ? (
           <>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {paginatedData.map((item, index) => (
                 <ContentCard 
                   key={`content-${item.id}-${currentPage}-${index}`} 
@@ -147,21 +147,23 @@ export function DashboardContent() {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-4 mt-8">
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 sm:mt-8">
                 <Button
                   onClick={() => setCurrentPage(p => Math.max(p - 1, 1))}
                   disabled={currentPage === 1}
                   variant="outline"
+                  className="w-full sm:w-auto"
                 >
                   Previous
                 </Button>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-xs sm:text-sm text-muted-foreground order-first sm:order-none">
                   Page {currentPage} of {totalPages}
                 </span>
                 <Button
                   onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
                   disabled={currentPage === totalPages}
                   variant="outline"
+                  className="w-full sm:w-auto"
                 >
                   Next
                 </Button>
@@ -169,9 +171,9 @@ export function DashboardContent() {
             )}
           </>
         ) : (
-          <Card className="flex items-center justify-center p-12">
-            <div className="text-center">
-              <p className="text-muted-foreground mb-4">
+          <Card className="flex items-center justify-center p-8 sm:p-12">
+            <div className="text-center max-w-md">
+              <p className="text-muted-foreground mb-4 text-sm sm:text-base">
                 {searchQuery 
                   ? `No results for "${searchQuery}".` 
                   : activeCategories.length === 0
@@ -180,7 +182,7 @@ export function DashboardContent() {
                 }
               </p>
               {!searchQuery && activeCategories.length === 0 && (
-                <Button variant="outline" onClick={() => window.location.href = '/settings'}>
+                <Button variant="outline" onClick={() => window.location.href = '/settings'} className="w-full sm:w-auto">
                   Go to Settings
                 </Button>
               )}

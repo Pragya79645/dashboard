@@ -55,13 +55,13 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
             unoptimized={imageError}
           />
         </Link>
-        <Badge className="absolute top-2 right-2" variant="secondary">{item.category}</Badge>
+        <Badge className="absolute top-1 right-1 sm:top-2 sm:right-2 text-xs" variant="secondary">{item.category}</Badge>
       </CardHeader>
-      <CardContent className="flex-grow p-4 space-y-3">
-        <CardTitle className="text-lg leading-snug">
+      <CardContent className="flex-grow p-3 sm:p-4 space-y-2 sm:space-y-3">
+        <CardTitle className="text-sm sm:text-base lg:text-lg leading-snug line-clamp-2">
           <Link href={item.link} className="hover:text-primary transition-colors">{item.title}</Link>
         </CardTitle>
-        <p className="text-sm text-muted-foreground line-clamp-3">{item.description}</p>
+        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3">{item.description}</p>
         {item.publishedAt && (
           <p className="text-xs text-muted-foreground">
             {new Date(item.publishedAt).toLocaleDateString('en-US', {
@@ -72,22 +72,24 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
           </p>
         )}
       </CardContent>
-      <CardFooter className="p-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-8 w-8">
+      <CardFooter className="p-3 sm:p-4 flex justify-between items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Avatar className="h-6 w-6 sm:h-8 sm:w-8 flex-shrink-0">
             <AvatarImage src={item.authorImageUrl} alt={item.author} />
-            <AvatarFallback>{item.author.charAt(0)}</AvatarFallback>
+            <AvatarFallback className="text-xs">{item.author.charAt(0)}</AvatarFallback>
           </Avatar>
-          <span className="text-xs font-medium text-muted-foreground">{item.author}</span>
+          <span className="text-xs font-medium text-muted-foreground truncate">{item.author}</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
           <Button
             asChild
             variant="outline"
             size="sm"
+            className="text-xs sm:text-sm px-2 sm:px-3"
           >
             <Link href={item.link} target="_blank" rel="noopener noreferrer">
-              Read More
+              <span className="hidden sm:inline">Read More</span>
+              <span className="sm:hidden">Read</span>
             </Link>
           </Button>
           <Button
@@ -95,8 +97,9 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
             size="icon"
             onClick={handleFavoriteClick}
             aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+            className="h-8 w-8 sm:h-9 sm:w-9"
           >
-            <Heart className={cn("h-5 w-5", favorite ? "fill-red-500 text-red-500" : "text-muted-foreground")} />
+            <Heart className={cn("h-4 w-4 sm:h-5 sm:w-5", favorite ? "fill-red-500 text-red-500" : "text-muted-foreground")} />
           </Button>
         </div>
       </CardFooter>

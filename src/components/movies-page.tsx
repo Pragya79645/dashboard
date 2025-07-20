@@ -103,48 +103,55 @@ export function MoviesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Movie Explorer</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+      <div className="text-center space-y-2 sm:space-y-4 px-4 sm:px-0">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">Movie Explorer</h1>
+        <p className="text-sm sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Discover popular, trending, and upcoming movies. Search by title and filter by your preferences.
         </p>
       </div>
 
       {/* Search */}
-      <MovieSearch onSearch={handleSearch} />
+      <div className="px-4 sm:px-0">
+        <MovieSearch onSearch={handleSearch} />
+      </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="popular" className="flex items-center gap-2">
-            <Film className="w-4 h-4" />
-            Popular
-            <Badge variant="secondary">{popular.length}</Badge>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="px-4 sm:px-0">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
+          <TabsTrigger value="popular" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Film className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Popular</span>
+            <span className="sm:hidden">Pop</span>
+            <Badge variant="secondary" className="text-xs">{popular.length}</Badge>
           </TabsTrigger>
-          <TabsTrigger value="trending" className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4" />
-            Trending
-            <Badge variant="secondary">{trending.length}</Badge>
+          <TabsTrigger value="trending" className="flex items-center gap-1 text-xs sm:text-sm">
+            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Trending</span>
+            <span className="sm:hidden">Trend</span>
+            <Badge variant="secondary" className="text-xs">{trending.length}</Badge>
           </TabsTrigger>
-          <TabsTrigger value="upcoming" className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            Upcoming
-            <Badge variant="secondary">{upcoming.length}</Badge>
+          <TabsTrigger value="upcoming" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Upcoming</span>
+            <span className="sm:hidden">Soon</span>
+            <Badge variant="secondary" className="text-xs">{upcoming.length}</Badge>
           </TabsTrigger>
-          <TabsTrigger value="top-rated" className="flex items-center gap-2">
-            <Star className="w-4 h-4" />
-            Top Rated
-            <Badge variant="secondary">{topRated.length}</Badge>
+          <TabsTrigger value="top-rated" className="flex items-center gap-1 text-xs sm:text-sm">
+            <Star className="w-3 h-3 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Top Rated</span>
+            <span className="sm:hidden">Top</span>
+            <Badge variant="secondary" className="text-xs">{topRated.length}</Badge>
           </TabsTrigger>
-          <TabsTrigger value="search" className="flex items-center gap-2">
-            Search Results
-            {searchQuery && <Badge variant="secondary">{searchResults.length}</Badge>}
+          <TabsTrigger value="search" className="flex items-center gap-1 text-xs sm:text-sm col-span-2 sm:col-span-1 lg:col-span-1">
+            <span className="hidden sm:inline">Search Results</span>
+            <span className="sm:hidden">Search</span>
+            {searchQuery && <Badge variant="secondary" className="text-xs">{searchResults.length}</Badge>}
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="popular" className="mt-8">
+        <TabsContent value="popular" className="mt-6 sm:mt-8">
           <MovieGrid
             movies={popular}
             loading={loading}
@@ -157,7 +164,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="trending" className="mt-8">
+        <TabsContent value="trending" className="mt-6 sm:mt-8">
           <MovieGrid
             movies={trending}
             loading={loading}
@@ -170,7 +177,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="upcoming" className="mt-8">
+        <TabsContent value="upcoming" className="mt-6 sm:mt-8">
           <MovieGrid
             movies={upcoming}
             loading={loading}
@@ -183,7 +190,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="top-rated" className="mt-8">
+        <TabsContent value="top-rated" className="mt-6 sm:mt-8">
           <MovieGrid
             movies={topRated}
             loading={loading}
@@ -196,7 +203,7 @@ export function MoviesPage() {
           />
         </TabsContent>
 
-        <TabsContent value="search" className="mt-8">
+        <TabsContent value="search" className="mt-6 sm:mt-8">
           {searchQuery ? (
             <MovieGrid
               movies={searchResults}
@@ -212,8 +219,8 @@ export function MoviesPage() {
             />
           ) : (
             <div className="text-center py-12">
-              <h3 className="text-lg font-medium text-muted-foreground mb-2">No search query</h3>
-              <p className="text-sm text-muted-foreground">Enter a movie title to search</p>
+              <h3 className="text-base sm:text-lg font-medium text-muted-foreground mb-2">No search query</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Enter a movie title to search</p>
             </div>
           )}
         </TabsContent>

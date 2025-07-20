@@ -54,35 +54,35 @@ export function DashboardHeaderContent() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 sm:px-6">
-      <div className="md:hidden">
+    <header className="sticky top-0 z-10 flex h-14 sm:h-16 items-center gap-2 sm:gap-4 border-b bg-background px-3 sm:px-4 lg:px-6">
+      <div className="sm:hidden">
         <SidebarTrigger />
       </div>
 
-      <h1 className="text-lg font-semibold md:text-xl hidden sm:block">
+      <h1 className="text-base sm:text-lg font-semibold md:text-xl hidden md:block">
         {pageTitles[pathname] || 'Content Canvas'}
       </h1>
       
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      <div className="flex w-full items-center gap-2 sm:gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial" onSubmit={(e) => e.preventDefault()}>
           <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-2 sm:left-2.5 top-2 sm:top-2.5 h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search content..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+              placeholder="Search..."
+              className="pl-7 sm:pl-8 text-sm h-8 sm:h-10 w-full sm:w-[200px] md:w-[180px] lg:w-[250px] xl:w-[300px]"
               value={searchValue}
               onChange={handleSearch}
             />
           </div>
         </form>
         <ThemeToggle />
-         <Button variant="ghost" size="icon" className="rounded-full">
+        <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 sm:h-9 sm:w-9">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="h-6 w-6"
+              className="h-4 w-4 sm:h-5 sm:w-5"
             >
               <path
                 fillRule="evenodd"

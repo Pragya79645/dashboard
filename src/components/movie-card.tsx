@@ -43,7 +43,7 @@ export function MovieCard({
   };
 
   return (
-    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 bg-card">
+    <Card className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105 bg-card h-full">
       {/* Poster Image */}
       <div className="relative aspect-[2/3] overflow-hidden">
         <img
@@ -56,7 +56,7 @@ export function MovieCard({
         />
         {!imageLoaded && (
           <div className="absolute inset-0 bg-muted animate-pulse flex items-center justify-center">
-            <div className="w-16 h-16 bg-muted-foreground/20 rounded"></div>
+            <div className="w-8 h-8 sm:w-16 sm:h-16 bg-muted-foreground/20 rounded"></div>
           </div>
         )}
         
@@ -67,56 +67,57 @@ export function MovieCard({
               size="sm"
               variant={isFavorite ? "destructive" : "secondary"}
               onClick={() => onAddToFavorites(movie)}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 text-xs sm:text-sm"
             >
-              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-              {isFavorite ? 'Saved' : 'Save'}
+              <Heart className={`w-3 h-3 sm:w-4 sm:h-4 ${isFavorite ? 'fill-current' : ''}`} />
+              <span className="hidden sm:inline">{isFavorite ? 'Saved' : 'Save'}</span>
             </Button>
           )}
         </div>
 
         {/* Rating badge */}
-        <div className="absolute top-2 right-2">
-          <Badge variant="secondary" className="flex items-center gap-1 bg-black/70 text-white">
-            <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+        <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
+          <Badge variant="secondary" className="flex items-center gap-1 bg-black/70 text-white text-xs">
+            <Star className="w-2 h-2 sm:w-3 sm:h-3 fill-yellow-400 text-yellow-400" />
             {movie.vote_average.toFixed(1)}
           </Badge>
         </div>
       </div>
 
       {/* Movie Info */}
-      <CardHeader className="pb-2">
-        <h3 className="font-semibold text-lg leading-tight line-clamp-2" title={movie.title}>
+      <CardHeader className="pb-1 sm:pb-2 p-2 sm:p-4">
+        <h3 className="font-semibold text-sm sm:text-base lg:text-lg leading-tight line-clamp-2" title={movie.title}>
           {movie.title}
         </h3>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Calendar className="w-4 h-4" />
+        <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground">
+          <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
           {formatDate(movie.release_date)}
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {isExpanded ? movie.overview : truncateText(movie.overview, 120)}
+      <CardContent className="pt-0 p-2 sm:p-4 sm:pt-0 flex-1">
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-4">
+          {isExpanded ? movie.overview : truncateText(movie.overview, 100)}
         </p>
       </CardContent>
 
-      <CardFooter className="pt-2 flex gap-2">
+      <CardFooter className="pt-1 sm:pt-2 p-2 sm:p-4 flex gap-1 sm:gap-2">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="flex-1">
-              Read More
+            <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm">
+              <span className="hidden sm:inline">Read More</span>
+              <span className="sm:hidden">More</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-xl">{movie.title}</DialogTitle>
-              <div className="flex items-center justify-between gap-2 text-sm text-muted-foreground">
+          <DialogContent className="max-w-2xl mx-4 sm:mx-auto max-h-[90vh] overflow-y-auto">
+            <DialogHeader className="space-y-3">
+              <DialogTitle className="text-lg sm:text-xl leading-tight">{movie.title}</DialogTitle>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs sm:text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                   {formatDate(movie.release_date)}
                 </div>
-                <Badge variant="secondary" className="flex items-center gap-1">
+                <Badge variant="secondary" className="flex items-center gap-1 w-fit">
                   <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                   {movie.vote_average.toFixed(1)}
                 </Badge>
@@ -136,10 +137,15 @@ export function MovieCard({
                   <Button
                     variant={isFavorite ? "destructive" : "outline"}
                     onClick={() => onAddToFavorites(movie)}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 w-full sm:w-auto text-sm"
                   >
                     <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-                    {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                    <span className="hidden sm:inline">
+                      {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                    </span>
+                    <span className="sm:hidden">
+                      {isFavorite ? 'Remove' : 'Add'}
+                    </span>
                   </Button>
                 )}
               </div>

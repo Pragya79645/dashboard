@@ -76,39 +76,39 @@ export default function TestRecommendations() {
   };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 sm:space-y-6 p-4 sm:p-6">
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center justify-center gap-2">
-          <Sparkles className="h-8 w-8 text-primary" />
-          Test Recommendations Feature
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight flex items-center justify-center gap-2">
+          <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+          <span className="text-lg sm:text-3xl">Test Recommendations Feature</span>
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm sm:text-base">
           Test the "you may also like" functionality by adding sample content to favorites
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Test Movie Recommendations */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
               🎬 Movie Recommendations Test
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="p-4 border rounded-lg">
-              <h3 className="font-medium">{testMovie.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2">
+            <div className="p-3 sm:p-4 border rounded-lg space-y-2">
+              <h3 className="font-medium text-sm sm:text-base">{testMovie.title}</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                 {testMovie.overview}
               </p>
-              <Badge variant="secondary" className="mt-2">
+              <Badge variant="secondary" className="text-xs">
                 Rating: {testMovie.vote_average}/10
               </Badge>
             </div>
             <Button 
               onClick={testMovieRecommendations}
               disabled={loading}
-              className="w-full"
+              className="w-full text-sm"
             >
               <Heart className="h-4 w-4 mr-2" />
               Add to Favorites & Get Recommendations
@@ -118,25 +118,25 @@ export default function TestRecommendations() {
 
         {/* Test News Recommendations */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
               📰 News Recommendations Test
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="p-4 border rounded-lg">
-              <h3 className="font-medium">{testNewsArticle.title}</h3>
-              <p className="text-sm text-muted-foreground line-clamp-2">
+            <div className="p-3 sm:p-4 border rounded-lg space-y-2">
+              <h3 className="font-medium text-sm sm:text-base">{testNewsArticle.title}</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                 {testNewsArticle.description}
               </p>
-              <Badge variant="secondary" className="mt-2">
+              <Badge variant="secondary" className="text-xs">
                 Category: {testNewsArticle.category}
               </Badge>
             </div>
             <Button 
               onClick={testNewsRecommendations}
               disabled={loading}
-              className="w-full"
+              className="w-full text-sm"
             >
               <Heart className="h-4 w-4 mr-2" />
               Add to Favorites & Get Recommendations
@@ -147,26 +147,26 @@ export default function TestRecommendations() {
 
       {/* Current Status */}
       <Card>
-        <CardHeader>
-          <CardTitle>Current Status</CardTitle>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-base sm:text-lg">Current Status</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-primary">{favorites.length}</div>
-              <div className="text-sm text-muted-foreground">Favorite Movies</div>
+              <div className="text-xl sm:text-2xl font-bold text-primary">{favorites.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Favorite Movies</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-primary">{favoriteNews.length}</div>
-              <div className="text-sm text-muted-foreground">Favorite News</div>
+              <div className="text-xl sm:text-2xl font-bold text-primary">{favoriteNews.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Favorite News</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-primary">{movieRecommendations.length}</div>
-              <div className="text-sm text-muted-foreground">Movie Recommendations</div>
+              <div className="text-xl sm:text-2xl font-bold text-primary">{movieRecommendations.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Movie Recommendations</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-primary">{newsRecommendations.length}</div>
-              <div className="text-sm text-muted-foreground">News Recommendations</div>
+              <div className="text-xl sm:text-2xl font-bold text-primary">{newsRecommendations.length}</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">News Recommendations</div>
             </div>
           </div>
         </CardContent>
@@ -174,11 +174,11 @@ export default function TestRecommendations() {
 
       {/* Instructions */}
       <Card>
-        <CardHeader>
-          <CardTitle>How to Test</CardTitle>
+        <CardHeader className="pb-4">
+          <CardTitle className="text-base sm:text-lg">How to Test</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <ol className="list-decimal list-inside space-y-1">
+        <CardContent className="space-y-3 text-xs sm:text-sm">
+          <ol className="list-decimal list-inside space-y-2 pl-2">
             <li>Click the buttons above to add sample content to your favorites</li>
             <li>The system will automatically fetch recommendations based on the liked content</li>
             <li>Check the "Current Status" section to see recommendation counts</li>
