@@ -1,4 +1,5 @@
-export type ContentCategory = 'news' | 'movies' | 'music' | 'social';
+
+export type ContentCategory = 'tech' | 'finance' | 'sports';
 
 export interface ContentItem {
   id: string;

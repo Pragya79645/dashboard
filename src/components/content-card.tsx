@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -36,7 +37,7 @@ export function ContentCard({ item, isCarouselItem = false }: ContentCardProps) 
   return (
     <Card className={cardClasses}>
       <CardHeader className="p-0 relative">
-        <Link href={item.link} className="block">
+        <Link href={item.link}>
           <Image
             src={item.imageUrl}
             alt={item.title}

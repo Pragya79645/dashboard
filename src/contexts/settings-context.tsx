@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useContext, ReactNode } from 'react';
@@ -7,10 +8,9 @@ import { ContentCategory } from '@/lib/types';
 export type Settings = Record<ContentCategory, boolean>;
 
 const defaultSettings: Settings = {
-  news: true,
-  movies: true,
-  music: true,
-  social: true,
+  tech: true,
+  finance: true,
+  sports: true,
 };
 
 interface SettingsContextType {

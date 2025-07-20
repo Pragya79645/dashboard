@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useSettings } from "@/contexts/settings-context";
@@ -5,13 +6,12 @@ import type { ContentCategory } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Newspaper, Film, Music, Users } from "lucide-react";
+import { BrainCircuit, Landmark, BarChart } from "lucide-react";
 
 const categoryDetails: Record<ContentCategory, { label: string; description: string; icon: React.ElementType }> = {
-  news: { label: "News", description: "Latest headlines and articles.", icon: Newspaper },
-  movies: { label: "Movies", description: "Film reviews and trailers.", icon: Film },
-  music: { label: "Music", description: "Album releases and artist news.", icon: Music },
-  social: { label: "Social", description: "Trending posts and updates.", icon: Users },
+  tech: { label: "Tech", description: "Latest news from the world of technology.", icon: BrainCircuit },
+  finance: { label: "Finance", description: "Market updates and financial news.", icon: Landmark },
+  sports: { label: "Sports", description: "Scores, highlights, and sports news.", icon: BarChart },
 };
 
 export default function SettingsPage() {
@@ -27,24 +27,23 @@ export default function SettingsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          {Object.keys(settings).map((key) => {
-            const category = key as ContentCategory;
-            const { label, description, icon: Icon } = categoryDetails[category];
+          {(Object.keys(settings) as ContentCategory[]).map((key) => {
+            const { label, description, icon: Icon } = categoryDetails[key];
             return (
-              <div key={category} className="flex items-center justify-between p-4 rounded-lg border">
+              <div key={key} className="flex items-center justify-between p-4 rounded-lg border">
                 <div className="flex items-start gap-4">
                    <Icon className="w-6 h-6 text-primary mt-1" />
                   <div>
-                    <Label htmlFor={category} className="text-base font-medium">
+                    <Label htmlFor={key} className="text-base font-medium">
                       {label}
                     </Label>
                     <p className="text-sm text-muted-foreground">{description}</p>
                   </div>
                 </div>
                 <Switch
-                  id={category}
-                  checked={settings[category]}
-                  onCheckedChange={() => toggleSetting(category)}
+                  id={key}
+                  checked={settings[key]}
+                  onCheckedChange={() => toggleSetting(key)}
                 />
               </div>
             );
