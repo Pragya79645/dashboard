@@ -9,7 +9,7 @@ import { ReduxProvider } from '@/components/redux-provider';
 import { AppShell } from '@/components/app-shell';
 
 export const metadata: Metadata = {
-  title: 'Content Canvas',
+  title: 'InfoScope',
   description: 'Your personalized content dashboard.',
 };
 
