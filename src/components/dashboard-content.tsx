@@ -79,7 +79,7 @@ export function DashboardContent() {
   return (
     <div className="space-y-6">
       {/* Enhanced Header */}
-      <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-950 dark:via-purple-950 dark:to-indigo-950 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] mx-4 sm:mx-0">
+      <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-900/30 dark:via-purple-900/30 dark:to-indigo-900/30 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)] mx-4 sm:mx-0">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-3">

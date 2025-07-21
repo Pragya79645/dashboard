@@ -27,6 +27,7 @@ export const RecommendationsFeed: React.FC<RecommendationsFeedProps> = React.mem
   contentType = 'all'
 }) => {
   const { movieRecommendations, newsRecommendations, favorites, favoriteNews } = useFavorites();
+  const [expandedSections, setExpandedSections] = React.useState<Set<string>>(new Set());
 
   // Calculate total recommendations based on content type
   const totalRecommendations = React.useMemo(() => {
@@ -118,18 +119,35 @@ export const RecommendationsFeed: React.FC<RecommendationsFeedProps> = React.mem
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-              {recommendation.movies.slice(0, maxMoviesPerSection).map((movie) => (
+              {recommendation.movies.slice(0, 
+                expandedSections.has(recommendation.id) ? recommendation.movies.length : maxMoviesPerSection
+              ).map((movie) => (
                 <MovieCard key={movie.id} movie={movie} />
               ))}
             </div>
-            {recommendation.movies.length > maxMoviesPerSection && (
+            {recommendation.movies.length > maxMoviesPerSection && !expandedSections.has(recommendation.id) && (
               <div className="mt-4 text-center">
                 <Button
-                  onClick={() => window.location.href = '/recommendations'}
+                  onClick={() => setExpandedSections(prev => new Set([...prev, recommendation.id]))}
                   variant="ghost"
                   size="sm"
                 >
                   View {recommendation.movies.length - maxMoviesPerSection} more similar movies
+                </Button>
+              </div>
+            )}
+            {expandedSections.has(recommendation.id) && recommendation.movies.length > maxMoviesPerSection && (
+              <div className="mt-4 text-center">
+                <Button
+                  onClick={() => setExpandedSections(prev => {
+                    const newSet = new Set(prev);
+                    newSet.delete(recommendation.id);
+                    return newSet;
+                  })}
+                  variant="ghost"
+                  size="sm"
+                >
+                  Show fewer movies
                 </Button>
               </div>
             )}
@@ -156,18 +174,35 @@ export const RecommendationsFeed: React.FC<RecommendationsFeedProps> = React.mem
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {recommendation.articles.slice(0, maxArticlesPerSection).map((article) => (
+              {recommendation.articles.slice(0, 
+                expandedSections.has(recommendation.id) ? recommendation.articles.length : maxArticlesPerSection
+              ).map((article) => (
                 <ContentCard key={article.id} item={article} />
               ))}
             </div>
-            {recommendation.articles.length > maxArticlesPerSection && (
+            {recommendation.articles.length > maxArticlesPerSection && !expandedSections.has(recommendation.id) && (
               <div className="mt-4 text-center">
                 <Button
-                  onClick={() => window.location.href = '/recommendations'}
+                  onClick={() => setExpandedSections(prev => new Set([...prev, recommendation.id]))}
                   variant="ghost"
                   size="sm"
                 >
                   View {recommendation.articles.length - maxArticlesPerSection} more related articles
+                </Button>
+              </div>
+            )}
+            {expandedSections.has(recommendation.id) && recommendation.articles.length > maxArticlesPerSection && (
+              <div className="mt-4 text-center">
+                <Button
+                  onClick={() => setExpandedSections(prev => {
+                    const newSet = new Set(prev);
+                    newSet.delete(recommendation.id);
+                    return newSet;
+                  })}
+                  variant="ghost"
+                  size="sm"
+                >
+                  Show fewer articles
                 </Button>
               </div>
             )}

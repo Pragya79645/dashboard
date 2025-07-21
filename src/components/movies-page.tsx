@@ -250,51 +250,51 @@ export function MoviesPage() {
                 Browse Categories
               </h3>
             </div>
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-4 border-border bg-muted shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+            <TabsList className="grid w-full grid-cols-5 border-4 border-border bg-muted shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] p-1 gap-1 h-auto">
               <TabsTrigger 
                 value="popular" 
-                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
+                className="flex items-center justify-center gap-1 text-xs font-bold uppercase tracking-tight px-1 py-1 min-h-[2.5rem] data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                <Film className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Popular</span>
-                <span className="sm:hidden">Pop</span>
-                <Badge variant="secondary" className="text-xs font-bold">{popular.length}</Badge>
+                <div className="flex flex-col items-center gap-0.5">
+                  <Film className="w-3 h-3" />
+                  <span>Pop</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="trending" 
-                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-purple-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="flex items-center justify-center gap-1 text-xs font-bold uppercase tracking-tight px-1 py-1 min-h-[2.5rem] data-[state=active]:bg-purple-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Trending</span>
-                <span className="sm:hidden">Trend</span>
-                <Badge variant="secondary" className="text-xs font-bold">{trending.length}</Badge>
+                <div className="flex flex-col items-center gap-0.5">
+                  <TrendingUp className="w-3 h-3" />
+                  <span>Trend</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="upcoming" 
-                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="flex items-center justify-center gap-1 text-xs font-bold uppercase tracking-tight px-1 py-1 min-h-[2.5rem] data-[state=active]:bg-indigo-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Upcoming</span>
-                <span className="sm:hidden">Soon</span>
-                <Badge variant="secondary" className="text-xs font-bold">{upcoming.length}</Badge>
+                <div className="flex flex-col items-center gap-0.5">
+                  <Calendar className="w-3 h-3" />
+                  <span>Soon</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="top-rated" 
-                className="flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wide data-[state=active]:bg-yellow-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="flex items-center justify-center gap-1 text-xs font-bold uppercase tracking-tight px-1 py-1 min-h-[2.5rem] data-[state=active]:bg-yellow-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                <Star className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Top Rated</span>
-                <span className="sm:hidden">Top</span>
-                <Badge variant="secondary" className="text-xs font-bold">{topRated.length}</Badge>
+                <div className="flex flex-col items-center gap-0.5">
+                  <Star className="w-3 h-3" />
+                  <span>Top</span>
+                </div>
               </TabsTrigger>
               <TabsTrigger 
                 value="search" 
-                className="flex items-center gap-1 text-xs sm:text-sm col-span-2 sm:col-span-1 lg:col-span-1 font-bold uppercase tracking-wide data-[state=active]:bg-green-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="flex items-center justify-center gap-1 text-xs font-bold uppercase tracking-tight px-1 py-1 min-h-[2.5rem] data-[state=active]:bg-green-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                <Search className="w-3 h-3 sm:w-4 sm:h-4" />
-                <span className="hidden sm:inline">Search Results</span>
-                <span className="sm:hidden">Search</span>
-                {searchQuery && <Badge variant="secondary" className="text-xs font-bold">{searchResults.length}</Badge>}
+                <div className="flex flex-col items-center gap-0.5">
+                  <Search className="w-3 h-3" />
+                  <span>Find</span>
+                </div>
               </TabsTrigger>
             </TabsList>
           </div>

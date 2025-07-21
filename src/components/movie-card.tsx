@@ -61,7 +61,7 @@ export function MovieCard({
         )}
         
         {/* Overlay with actions */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+        <div className="absolute inset-0 bg-black/60 dark:bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
           {onAddToFavorites && (
             <Button
               size="sm"
@@ -77,7 +77,7 @@ export function MovieCard({
 
         {/* Rating badge */}
         <div className="absolute top-1 right-1 sm:top-2 sm:right-2">
-          <Badge variant="secondary" className="flex items-center gap-1 bg-black/70 text-white text-xs">
+          <Badge variant="secondary" className="flex items-center gap-1 bg-black/70 dark:bg-slate-800/90 text-white text-xs">
             <Star className="w-2 h-2 sm:w-3 sm:h-3 fill-yellow-400 text-yellow-400" />
             {movie.vote_average.toFixed(1)}
           </Badge>

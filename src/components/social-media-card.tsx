@@ -49,7 +49,7 @@ export function SocialMediaCard({ post }: SocialMediaCardProps) {
 
   return (
     <Card className={cn(
-      "p-6 border-4 border-border bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-950 dark:via-purple-950 dark:to-indigo-950 transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[8px_8px_0px_0px_rgb(255,255,255)] hover:-translate-y-1 hover:-translate-x-1"
+      "p-6 border-4 border-border bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-900/30 dark:via-purple-900/30 dark:to-indigo-900/30 transition-all duration-200 hover:shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[8px_8px_0px_0px_rgb(255,255,255)] hover:-translate-y-1 hover:-translate-x-1"
     )}>
       {/* Header */}
       <div className="flex items-start justify-between mb-4 p-3 bg-white/50 dark:bg-gray-800/50 border-2 border-border rounded-lg backdrop-blur-sm">

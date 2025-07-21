@@ -30,7 +30,7 @@ export function MainSidebar() {
 
   return (
     <Sidebar className="border-r-4 border-border">
-      <SidebarHeader className="p-6 border-b-4 border-border bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950">
+      <SidebarHeader className="p-6 border-b-4 border-border bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/30 dark:to-blue-900/30">
         <div className="flex items-center gap-3">
            <div className="p-2 bg-primary text-primary-foreground rounded-lg border-3 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]">
              <PenSquare className="w-6 h-6 flex-shrink-0" />

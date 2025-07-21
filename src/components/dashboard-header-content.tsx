@@ -54,7 +54,7 @@ export function DashboardHeaderContent() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 sm:h-20 items-center gap-3 sm:gap-4 border-b-4 border-border bg-gradient-to-r from-blue-50/90 via-purple-50/90 to-indigo-50/90 dark:from-blue-950/90 dark:via-purple-950/90 dark:to-indigo-950/90 backdrop-blur supports-[backdrop-filter]:bg-blue-50/60 px-4 sm:px-6 lg:px-8 shadow-[0_8px_0px_0px_rgb(0,0,0)] dark:shadow-[0_8px_0px_0px_rgb(255,255,255)]">
+    <header className="sticky top-0 z-50 flex h-16 sm:h-20 items-center gap-3 sm:gap-4 border-b-4 border-border bg-gradient-to-r from-blue-50/90 via-purple-50/90 to-indigo-50/90 dark:from-blue-900/40 dark:via-purple-900/40 dark:to-indigo-900/40 backdrop-blur supports-[backdrop-filter]:bg-blue-50/60 px-4 sm:px-6 lg:px-8 shadow-[0_8px_0px_0px_rgb(0,0,0)] dark:shadow-[0_8px_0px_0px_rgb(255,255,255)]">
       <div className="sm:hidden flex-shrink-0">
         <SidebarTrigger className="h-10 w-10 border-2 border-border bg-white dark:bg-gray-800 shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)] hover:shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[4px_4px_0px_0px_rgb(255,255,255)] transition-all" />
       </div>

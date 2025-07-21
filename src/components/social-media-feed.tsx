@@ -91,7 +91,7 @@ export function SocialMediaFeed() {
       {/* Header */}
       <div className="space-y-6">
         {/* Main Header Card */}
-        <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-950 dark:via-purple-950 dark:to-indigo-950 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)]">
+        <Card className="p-8 border-4 border-border bg-gradient-to-r from-blue-50 via-purple-50 to-indigo-50 dark:from-blue-900/30 dark:via-purple-900/30 dark:to-indigo-900/30 shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)]">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div className="space-y-2">
               <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ export function SocialMediaFeed() {
         </Card>
 
         {/* Search Bar */}
-        <Card className="p-6 border-4 border-border bg-gradient-to-r from-blue-50/50 to-purple-50/50 dark:from-blue-950/50 dark:to-purple-950/50">
+        <Card className="p-6 border-4 border-border bg-gradient-to-r from-blue-50/50 to-purple-50/50 dark:from-blue-900/20 dark:to-purple-900/20">
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <div className="p-2 bg-blue-500 text-white rounded border-3 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)]">
@@ -156,7 +156,7 @@ export function SocialMediaFeed() {
       </div>
 
       {/* Platform Tabs */}
-      <Card className="p-6 border-4 border-border bg-gradient-to-r from-indigo-50/50 via-purple-50/50 to-blue-50/50 dark:from-indigo-950/50 dark:via-purple-950/50 dark:to-blue-950/50">
+      <Card className="p-6 border-4 border-border bg-gradient-to-r from-indigo-50/50 via-purple-50/50 to-blue-50/50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-blue-900/20">
         <div className="space-y-4">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-purple-500 text-white rounded border-3 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:shadow-[2px_2px_0px_0px_rgb(255,255,255)]">
@@ -167,36 +167,40 @@ export function SocialMediaFeed() {
             </h3>
           </div>
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-5 border-4 border-border bg-white dark:bg-gray-800 shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)]">
+            <TabsList className="grid w-full grid-cols-5 border-4 border-border bg-white dark:bg-slate-800 shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] p-1 gap-1">
               <TabsTrigger 
                 value="all" 
-                className="font-bold uppercase tracking-wide data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
+                className="font-bold uppercase tracking-tight text-xs px-1 py-2 data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
                 All
               </TabsTrigger>
               <TabsTrigger 
                 value="twitter" 
-                className="font-bold uppercase tracking-wide data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="font-bold uppercase tracking-tight text-xs px-1 py-2 data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                Twitter
+                <span className="hidden xs:inline">Twitter</span>
+                <span className="xs:hidden">X</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="instagram" 
-                className="font-bold uppercase tracking-wide data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="font-bold uppercase tracking-tight text-xs px-1 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                Instagram
+                <span className="hidden xs:inline">Instagram</span>
+                <span className="xs:hidden">IG</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="facebook" 
-                className="font-bold uppercase tracking-wide data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
+                className="font-bold uppercase tracking-tight text-xs px-1 py-2 data-[state=active]:bg-blue-600 data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
               >
-                Facebook
+                <span className="hidden xs:inline">Facebook</span>
+                <span className="xs:hidden">FB</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="tiktok" 
-                className="font-bold uppercase tracking-wide data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)]"
+                className="font-bold uppercase tracking-tight text-xs px-1 py-2 data-[state=active]:bg-slate-800 dark:data-[state=active]:bg-slate-200 data-[state=active]:text-white dark:data-[state=active]:text-black data-[state=active]:shadow-[2px_2px_0px_0px_rgb(255,255,255)] dark:data-[state=active]:shadow-[2px_2px_0px_0px_rgb(0,0,0)]"
               >
-                TikTok
+                <span className="hidden xs:inline">TikTok</span>
+                <span className="xs:hidden">TT</span>
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -206,7 +210,7 @@ export function SocialMediaFeed() {
       {/* Filters */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* Popular Hashtags */}
-        <Card className="p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-950 dark:to-purple-950">
+        <Card className="p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-blue-50 via-background to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-3 bg-blue-500 text-white rounded-lg border-4 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]">
               <Hash className="h-6 w-6" />
@@ -229,7 +233,7 @@ export function SocialMediaFeed() {
                   "cursor-pointer border-3 border-border font-bold uppercase tracking-wide transition-all hover:shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[3px_3px_0px_0px_rgb(255,255,255)] hover:-translate-y-1 px-4 py-2 text-sm",
                   selectedHashtags.includes(hashtag)
                     ? "bg-blue-500 text-white shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]"
-                    : "bg-background hover:bg-muted/80"
+                    : "bg-background hover:bg-muted/80 text-foreground dark:text-white"
                 )}
               >
                 {hashtag}
@@ -239,9 +243,9 @@ export function SocialMediaFeed() {
         </Card>
 
         {/* Featured Profiles */}
-        <Card className="p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-blue-50 via-background to-blue-50 dark:from-blue-950 dark:to-blue-950">
+        <Card className="p-6 border-4 border-border shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)] bg-gradient-to-br from-blue-50 via-background to-blue-50 dark:from-blue-900/30 dark:to-blue-900/30">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-blue-500 text-white rounded-lg border-4 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)]">
+            <div className="p-3 bg-blue-500 text-white rounded-lg border-4 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]">
               <User className="h-6 w-6" />
             </div>
             <div>
@@ -262,7 +266,7 @@ export function SocialMediaFeed() {
                   "cursor-pointer border-3 border-border font-bold uppercase tracking-wide transition-all hover:shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:hover:shadow-[3px_3px_0px_0px_rgb(255,255,255)] hover:-translate-y-1 px-4 py-2 text-sm",
                   selectedProfiles.includes(profile)
                     ? "bg-blue-500 text-white shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]"
-                    : "bg-background hover:bg-muted/80"
+                    : "bg-background hover:bg-muted/80 text-foreground dark:text-white"
                 )}
               >
                 {profile}
@@ -274,7 +278,7 @@ export function SocialMediaFeed() {
 
       {/* Active Filters Display */}
       {hasActiveFilters && (
-        <Card className="p-6 border-4 border-border bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-950 dark:via-orange-950 dark:to-red-950 shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)]">
+        <Card className="p-6 border-4 border-border bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/30 dark:via-orange-900/30 dark:to-red-900/30 shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)]">
           <div className="flex items-center gap-3 mb-4">
             <div className="p-2 bg-orange-500 text-white rounded-lg border-3 border-border shadow-[2px_2px_0px_0px_rgb(0,0,0)]">
               <Filter className="h-5 w-5" />
