@@ -1,5 +1,6 @@
-# Firebase Studio
+# InfoScope
 
-This is a NextJS starter in Firebase Studio.
+ 
 
-To get started, take a look at src/app/page.tsx.
+*🌐InfoScope* is a personalized content hub that allows users to explore trending movies, latest news, and curated social media posts — all tailored to their interests. It also includes profile customization and mock authentication.
+
