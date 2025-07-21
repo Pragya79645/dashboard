@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { ContentCard } from "@/components/content-card";
 import { mockData } from "@/lib/mock-data";
 import type { ContentItem, ContentCategory } from "@/lib/types";
@@ -12,17 +12,32 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { RefreshCw, AlertCircle, Sparkles } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { RefreshCw, AlertCircle, Sparkles, Search, X, Filter } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RecommendationsFeed } from "@/components/recommendations-feed";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 const ITEMS_PER_PAGE = 6;
 
 export function DashboardContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const searchQuery = searchParams.get('q') || '';
   const { settings } = useSettings();
   const { movieRecommendations, newsRecommendations } = useFavorites();
+  
+  // Local search state
+  const [localSearchQuery, setLocalSearchQuery] = React.useState(searchQuery);
+  const [isFilterOpen, setIsFilterOpen] = React.useState(false);
+  const debounceTimeout = React.useRef<NodeJS.Timeout | null>(null);
   
   // Get active categories from settings (backward compatibility)
   const activeCategories = React.useMemo(() => {
@@ -43,14 +58,89 @@ export function DashboardContent() {
   const [filteredData, setFilteredData] = React.useState<ContentItem[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
 
+  // Handle search input changes with debouncing
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalSearchQuery(value);
+
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    debounceTimeout.current = setTimeout(() => {
+      const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+      if (!value) {
+        current.delete("q");
+      } else {
+        current.set("q", value);
+      }
+
+      const search = current.toString();
+      const query = search ? `?${search}` : "";
+
+      router.push(`${pathname}${query}`);
+    }, 500);
+  };
+
+  // Clear search
+  const clearSearch = () => {
+    setLocalSearchQuery('');
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.delete("q");
+    const search = current.toString();
+    const query = search ? `?${search}` : "";
+    router.push(`${pathname}${query}`);
+  };
+
+  // Toggle category filter
+  const toggleCategory = (category: ContentCategory) => {
+    // This would need to be implemented with the settings context
+    // For now, we'll just show the current functionality
+  };
+
+  // Cleanup timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, []);
+
+  // Sync local search with URL params
+  React.useEffect(() => {
+    setLocalSearchQuery(searchQuery);
+  }, [searchQuery]);
+
   React.useEffect(() => {
     // Combine news articles with mock data for fallback
     const allData = newsArticles.length > 0 ? newsArticles : mockData;
     
-    const newFilteredData = allData.filter(item =>
-      (activeCategories.length === 0 || activeCategories.includes(item.category)) &&
-      (searchQuery === '' || item.title.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+    const newFilteredData = allData.filter(item => {
+      // Category filter - if no categories are active, show all content
+      const categoryMatch = activeCategories.length === 0 || activeCategories.includes(item.category);
+      
+      // Search filter - search in title, description, and content
+      const searchMatch = searchQuery === '' || 
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item.content && item.content.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item.author && item.author.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      return categoryMatch && searchMatch;
+    });
+    
+    // Debug logging
+    console.log('Dashboard Search Debug:', {
+      searchQuery,
+      allDataCount: allData.length,
+      filteredDataCount: newFilteredData.length,
+      activeCategories,
+      hasNewsArticles: newsArticles.length > 0,
+      sampleTitles: allData.slice(0, 3).map(item => item.title)
+    });
+    
     setFilteredData(newFilteredData);
     setCurrentPage(1); // Reset to first page on filter change
   }, [searchQuery, settings, newsArticles, activeCategories]);
@@ -133,6 +223,99 @@ export function DashboardContent() {
               </Badge>
             </div>
           </div>
+        </div>
+      </Card>
+
+      {/* Enhanced Search Section */}
+      <Card className="p-6 border-4 border-border bg-gradient-to-r from-green-50 via-blue-50 to-purple-50 dark:from-green-900/30 dark:via-blue-900/30 dark:to-purple-900/30 shadow-[6px_6px_0px_0px_rgb(0,0,0)] dark:shadow-[6px_6px_0px_0px_rgb(255,255,255)]">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-green-500 text-white rounded-lg border-3 border-border shadow-[3px_3px_0px_0px_rgb(0,0,0)] dark:shadow-[3px_3px_0px_0px_rgb(255,255,255)]">
+              <Search className="h-5 w-5" />
+            </div>
+            <h3 className="text-xl font-bold uppercase tracking-wide">Search Content</h3>
+          </div>
+          
+          <div className="flex flex-col sm:flex-row gap-3">
+            {/* Search Input */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                type="text"
+                placeholder="Search news, articles, and content..."
+                value={localSearchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 pr-10 h-12 border-3 border-border font-medium"
+              />
+              {localSearchQuery && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
+                  onClick={clearSearch}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
+
+            {/* Category Filter */}
+            <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+              <PopoverTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="h-12 px-4 border-3 border-border font-bold uppercase tracking-wide"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  Categories ({activeCategories.length})
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 border-4 border-border shadow-[8px_8px_0px_0px_rgb(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgb(255,255,255)]">
+                <div className="space-y-4">
+                  <h4 className="font-bold uppercase tracking-wide">Filter by Categories</h4>
+                  <div className="text-sm text-muted-foreground">
+                    Category filtering is managed in Settings. Active categories are shown below.
+                  </div>
+                  <div className="space-y-3">
+                    {(['tech', 'finance', 'sports', 'business', 'entertainment', 'health', 'science', 'general'] as ContentCategory[]).map((category) => (
+                      <div key={category} className="flex items-center space-x-2">
+                        <Checkbox 
+                          id={category}
+                          checked={activeCategories.includes(category)}
+                          disabled={true}
+                        />
+                        <Label 
+                          htmlFor={category}
+                          className="text-sm font-medium capitalize tracking-wide"
+                        >
+                          {category}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => router.push('/settings')}
+                    className="w-full font-bold"
+                  >
+                    Manage Categories in Settings
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* Search Stats */}
+          {searchQuery && (
+            <div className="flex items-center gap-2 pt-2">
+              <Badge className="bg-green-500 text-white border-2 border-border font-bold uppercase tracking-wide">
+                🔍 Search: "{searchQuery}"
+              </Badge>
+              <Badge variant="outline" className="border-2 border-green-500 text-green-500 font-bold uppercase tracking-wide bg-background">
+                {filteredData.length} Results Found
+              </Badge>
+            </div>
+          )}
         </div>
       </Card>
 
