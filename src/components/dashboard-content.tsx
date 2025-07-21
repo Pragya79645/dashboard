@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { Suspense } from 'react';
 import { ContentCard } from "@/components/content-card";
 import { mockData } from "@/lib/mock-data";
 import type { ContentItem, ContentCategory } from "@/lib/types";
@@ -27,6 +28,14 @@ import { Label } from "@/components/ui/label";
 const ITEMS_PER_PAGE = 6;
 
 export function DashboardContent() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading content...</div>}>
+      <DashboardContentInner />
+    </Suspense>
+  );
+}
+
+function DashboardContentInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import { 
   User, 
   Mail, 
@@ -69,6 +70,14 @@ const MOVIE_GENRES: { value: MovieGenreCategory; label: string; icon: string }[]
 ];
 
 export default function ProfilePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <ProfilePageContent />
+    </Suspense>
+  );
+}
+
+function ProfilePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, updateProfile, logout, isAuthenticated } = useAuth();
