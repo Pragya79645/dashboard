@@ -16,12 +16,12 @@ import {
 import { cn } from "@/lib/utils";
 
 const menuItems = [
-  { href: "/", label: "News", icon: LayoutDashboard },
+  { href: "/profile", label: "Profile", icon: User },
   { href: "/movies", label: "Movies", icon: Film },
+  { href: "/", label: "News", icon: LayoutDashboard },
   { href: "/social", label: "Social Media", icon: MessageCircle },
   { href: "/favorites", label: "Favorites", icon: Heart },
   { href: "/recommendations", label: "Recommendations", icon: Sparkles },
-  { href: "/profile", label: "Profile", icon: User },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
