@@ -1,10 +1,26 @@
 "use client";
 
+import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { MainSidebar } from "@/components/main-sidebar";
 import { DashboardHeader } from "@/components/dashboard-header";
+import { useAuth } from '@/contexts/auth-context';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAuth();
+  const pathname = usePathname();
+
+  // Don't show sidebar for auth pages
+  const isAuthPage = pathname?.startsWith('/auth');
+
+  if (!isAuthenticated || isAuthPage) {
+    return (
+      <main className="min-h-screen w-full">
+        {children}
+      </main>
+    );
+  }
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">

@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
 import { FavoritesProvider } from '@/contexts/favorites-context';
 import { SettingsProvider } from '@/contexts/settings-context';
+import { AuthProvider } from '@/contexts/auth-context';
 import { ReduxProvider } from '@/components/redux-provider';
 import { AppShell } from '@/components/app-shell';
 
@@ -27,12 +28,14 @@ export default function RootLayout({
       <body className="font-body antialiased font-medium">
         <ReduxProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <FavoritesProvider>
-              <SettingsProvider>
-                <AppShell>{children}</AppShell>
-                <Toaster />
-              </SettingsProvider>
-            </FavoritesProvider>
+            <AuthProvider>
+              <FavoritesProvider>
+                <SettingsProvider>
+                  <AppShell>{children}</AppShell>
+                  <Toaster />
+                </SettingsProvider>
+              </FavoritesProvider>
+            </AuthProvider>
           </ThemeProvider>
         </ReduxProvider>
       </body>

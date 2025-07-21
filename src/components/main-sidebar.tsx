@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, LayoutDashboard, Settings, PenSquare, Film, Sparkles, MessageCircle } from "lucide-react";
+import { Heart, LayoutDashboard, Settings, PenSquare, Film, Sparkles, MessageCircle, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -21,7 +21,7 @@ const menuItems = [
   { href: "/social", label: "Social Media", icon: MessageCircle },
   { href: "/favorites", label: "Favorites", icon: Heart },
   { href: "/recommendations", label: "Recommendations", icon: Sparkles },
-
+  { href: "/profile", label: "Profile", icon: User },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -36,7 +36,7 @@ export function MainSidebar() {
              <PenSquare className="w-6 h-6 flex-shrink-0" />
            </div>
           <h1 className="text-xl font-black tracking-wider group-data-[collapsible=icon]:hidden uppercase bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Content Canvas
+            InfoScope
           </h1>
         </div>
       </SidebarHeader>
@@ -72,7 +72,7 @@ export function MainSidebar() {
       <SidebarFooter className="p-6 border-t-4 border-border group-data-[collapsible=icon]:hidden bg-gradient-to-r from-muted/50 to-background">
         <div className="p-3 bg-white dark:bg-gray-800 border-3 border-border shadow-[4px_4px_0px_0px_rgb(0,0,0)] dark:shadow-[4px_4px_0px_0px_rgb(255,255,255)] rounded-lg">
           <div className="text-sm text-muted-foreground font-bold uppercase tracking-wide text-center">
-              © {new Date().getFullYear()} Content Canvas
+              © {new Date().getFullYear()} InfoScope
           </div>
         </div>
       </SidebarFooter>
